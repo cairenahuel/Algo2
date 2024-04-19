@@ -1,0 +1,15 @@
+
+\documentclass{article}
+\input{AEDmacros}
+\begin{document}
+\begin{proc}{trayectoriaExtrañaEscalera}{\In trayectoria: \TLista{\float}}{\bool}
+\requiere{|trayectoria|>2}
+\asegura{res=\True \iff \existe[unalinea]{!n}{\ent}{1 \leq n < (|tr|-1) \yLuego (tr[n]>tr[n-1])\yLuego (tr[n]>tr[n+1])}}
+
+\textbf{\\
+\\
+donde\\
+tr=trayectoria\\
+\\}
+\end{proc}
+\end{document}

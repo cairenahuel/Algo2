@@ -1,0 +1,36 @@
+%
+%Editores={"nahuel":1704240029}
+%
+\documentclass{article}
+\input{AEDmacros}
+\begin{document}
+%
+\section{Introduction}
+\begin{proc}{trayectoriaDeLosFrutosIndividualesALargoPlazo}{\Inout trayectorias : \TLista{\TLista{\float}},\\ \In cooperan : \TLista{\bool}, \In apuestas : \TLista{\TLista{\float}}, \In pagos : \TLista{\TLista{\float}}, \In eventos : \TLista{\TLista{\nat}}}{}
+\requiere{|trayectorias|=|cooperan|=|apuestas|=|pagos|=|eventos|}
+\requiere{\paraTodo[unalinea]{n}{\ent}{(0 \leq n < |trayectoria|) \yLuego (|trayectoria[n]|=1 )\implicaLuego trayectoria[n][0]>0}}
+%ANIDAR OTRO PARA TODO SUB J
+\requiere{\paraTodo[unalinea]{n}{\ent}{(0 \leq n < |pagos|) \yLuego (|pagos[n]|>0) \implicaLuego pagos[n][0]>0}}
+%tiene que haber almenos una unidad de evento para cada persona
+%y creo que tambien deberiamos requerir que todos tengan la misma cantidad de eventos pero no se expresarlo
+%EDIT: segun la resolucion que estoy intentando hacer abajo si, tienen que
+\requiere{\paraTodo[unalinea]{n}{\ent}{(0 \leq n < |eventos|) \yLuego |eventos[n]|>0}}
+\asegura{\paraTodo[unalinea]{n}{\ent}{0 \leq n < |tr| \yLuego setAt(tr,n,\conc{tr[n],recurso})}}
+\aux{recurso}{n,co,ap,pa,ev}{\float}{\IfThenElse{co[n]}{fondo(n,co,ap,pa,ev)}{(tr[n][TIEMPO-1]*ap[n][ev[n][TIEMPO]*pa[n][ev[n][TIEMPO])+FONDO})}
+%
+%siento que todo esto esta mal porque estoy intentando implementar la solucion y no describir lo que quiero que pase
+%ignorando ese facto, falta definir bien QUE es el tiempo ( indicio de que algo esta mal )
+%
+%IMPORTANTE PARA EL TIEMPO: segun el apunte de especificacion del campus se pueden anidar cuantificadores
+%forall TIEMPOS forall INDIVIDUOS ta ta ta
+%IMPORTANTE PARA LO DE ARRIBA: por eso es necesario que todos tengan la misma cantidad de eventos
+%
+\textbf{where tr=trayectoria\\
+where co=cooperan\\
+where ap=apuestas\\
+where pa=pagos\\
+where ev=eventos}
+%hace frio, y estoy lejos de casa
+%hace tiempo que estoy sentado sobre esta piedra
+\end{proc}
+\end{document}

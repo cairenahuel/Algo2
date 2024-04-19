@@ -1,0 +1,24 @@
+\documentclass[10pt,a4paper]{article}
+
+\input{AEDmacros}
+\usepackage{caratula} % Version modificada para usar las macros de algo1 de ~> https://github.com/bcardiff/dc-tex
+
+
+\begin{proc}{nombre}{\In paramIn : \nat, \Inout paramInout : \TLista{\ent}}{tipoRes}
+	%    \modifica{parametro1, parametro2,..}
+	\requiere{expresionBooleana1}
+	\asegura{expresionBooleana2}
+	\aux{auxiliar1}{parametros}{tipoRes}{expresion}
+	\pred{pred1}{parametros}{expresion} 
+\end{proc}
+
+\aux{auxiliarSuelto}{parametros}{tipoRes}{expresion}
+% \paraTodo{variable}{tipo}{expresion}
+% \existe{variable}{tipo}{expresion}
+% Pueden tener [unalinea] para que no se divida en varias lineas
+\pred{predSuelto}{parametros}{\paraTodo[unalinea]{variable}{tipo}{algo \implicaLuego expresion}}
+\pred{predSuelto}{parametros}{\existe[unalinea]{variable}{tipo}{algo \yLuego expresion}}
+
+
+
+\end{document}
