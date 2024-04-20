@@ -8,7 +8,13 @@
 \section{Introduction}
 \begin{proc}{trayectoriaDeLosFrutosIndividualesALargoPlazo}{\Inout trayectorias : \TLista{\TLista{\float}},\\ \In cooperan : \TLista{\bool}, \In apuestas : \TLista{\TLista{\float}}, \In pagos : \TLista{\TLista{\float}}, \In eventos : \TLista{\TLista{\nat}}}{}
 \requiere{|trayectorias|=|cooperan|=|apuestas|=|pagos|=|eventos|}
-\requiere{\paraTodo[unalinea]{n}{\ent}{(0 \leq n < |trayectoria|) \yLuego (|trayectoria[n]|=1 )\implicaLuego trayectoria[n][0]>0}}
+
+% cada columna de pagos y apuestas representa el índice de un evento.
+% por lo tanto, además de igual número de usuarios, deben tener igual número de eventos.
+% entonces, tienen mismo número de filas que de columnas.
+
+\requiere{\paraTodo[unalinea]{n}{\ent}{(0 \leq n < individuosLen) \yLuego (|pagos[n]|=|apuestas[n]| )}}
+\requiere{\paraTodo[unalinea]{n}{\ent}{(0 \leq n < individuosLen) \yLuego (|trayectorias[n]|=1 \yLuego trayectorias[n][0]>0)}}
 %ANIDAR OTRO PARA TODO SUB J
 \requiere{\paraTodo[unalinea]{n}{\ent}{(0 \leq n < |pagos|) \yLuego (|pagos[n]|>0) \implicaLuego pagos[n][0]>0}}
 %tiene que haber almenos una unidad de evento para cada persona
