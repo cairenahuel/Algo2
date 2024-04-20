@@ -1,15 +1,30 @@
-
 \documentclass{article}
 \input{AEDmacros}
 \begin{document}
-\begin{proc}{trayectoriaExtrañaEscalera}{\In trayectoria: \TLista{\float}}{\bool}
-\requiere{|trayectoria|>2}
-\asegura{res=\True \iff \existe[unalinea]{!n}{\ent}{1 \leq n < (|tr|-1) \yLuego (tr[n]>tr[n-1])\yLuego (tr[n]>tr[n+1])}}
+\begin{proc}{trayectoriaExtrañaEscalera}{\In trayectoria:\TLista{\float}}{\bool}
+\requiere{|trayectoria|>0}
+\asegura{
+res=\True \iff 
+\existe[unalinea]{!n}{\ent}{esMaximoLocal(trayectoria,n)}
+}
 
-\textbf{\\
-\\
-donde\\
-tr=trayectoria\\
-\\}
+\pred{existeAnterior}{\In s:\TLista{\float}, \In n:\nat}
+{
+0 \leq n < |s| \yLuego 0 \leq n-1 < |s|
+}
+\pred{existePosterior}{\In s:\TLista{\float}, \In n:\nat}
+{
+0 \leq n < |s| \yLuego 0 \leq n+1 < |s|
+}
+\pred{esMaximoLocal}{\In s:\TLista{\float}, \In n:\nat}{
+    (existeAnterior(s,n) \implies s[n-1] < s[n])
+    \yLuego
+    (existePosterior(s,n) \implies s[n+1] < s[n])
+}
+%\textbf{\\
+%\\
+%donde\\
+%tr=trayectoria\\
+%\\}
 \end{proc}
 \end{document}
