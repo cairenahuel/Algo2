@@ -13,10 +13,9 @@
 % por lo tanto, además de igual número de usuarios, deben tener igual número de eventos.
 % entonces, tienen mismo número de filas que de columnas.
 
-\requiere{\paraTodo[unalinea]{n}{\ent}{(0 \leq n < individuosLen) \yLuego (|pagos[n]|=|apuestas[n]| )}}
-\requiere{\paraTodo[unalinea]{n}{\ent}{(0 \leq n < individuosLen) \yLuego (|trayectorias[n]|=1 \yLuego trayectorias[n][0]>0)}}
-%ANIDAR OTRO PARA TODO SUB J
-\requiere{\paraTodo[unalinea]{n}{\ent}{(0 \leq n < |pagos|) \yLuego (|pagos[n]|>0) \implicaLuego pagos[n][0]>0}}
+\requiere{\paraTodo[unalinea]{i}{\ent}{(0 \leq i < individuosLen) \yLuego (|pagos[i]|=|apuestas[i]| )}}
+\requiere{\paraTodo[unalinea]{i}{\ent}{(0 \leq i < individuosLen) \yLuego (|trayectorias[i]|=1 \yLuego trayectorias[i][0]>0)}}
+\requiere{\paraTodo[unalinea]{i,k}{\ent}{(0 \leq i < individuosLen, 0\leq k < pagosLen) \yLuego (|pagos[i]|, |pagos[i][k]|>0) }}
 %tiene que haber almenos una unidad de evento para cada persona
 %y creo que tambien deberiamos requerir que todos tengan la misma cantidad de eventos pero no se expresarlo
 %EDIT: segun la resolucion que estoy intentando hacer abajo si, tienen que
