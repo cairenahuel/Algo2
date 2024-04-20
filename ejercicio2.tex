@@ -20,6 +20,34 @@
 %y creo que tambien deberiamos requerir que todos tengan la misma cantidad de eventos pero no se expresarlo
 %EDIT: segun la resolucion que estoy intentando hacer abajo si, tienen que
 \requiere{\paraTodo[unalinea]{n}{\ent}{(0 \leq n < |eventos|) \yLuego |eventos[n]|>0}}
+
+\hfill 
+\par{\textbackslash*i,p son índices de los individuos y los pasos, respectivamente*\textbackslash}\\
+\asegura{
+	\paraTodo[unalinea]{i,p}{\ent}{recorreIndividuosPasos(i,p) \yLuego \IfThenElse{cooperan[i]}{trayectorias[i][p]=ufc(p)}{trayectorias[i][p]=ufc(p)}}
+}
+
+\hfill 
+\par{\textbackslash*i,p son índices de los individuos y los pasos, respectivamente*\textbackslash}\\
+\pred{recorreIndividuosPasos}{\In i: \ent, \In p: \ent}{0 \leq i < individuosLen \yLuego 0 \leq p < pasosLen}
+
+\hfill 
+\par{\textbackslash*i es el índice del individuo, p es el paso en el que estamos*\textbackslash}\\
+\aux{cuantoGano}{\In i: \ent, \In p: \ent}{\float}{trayectorias[i][p]*apuestas[i][eventos[i][p]]*pagos[i][eventos[i][p]]}
+
+\hfill 
+\par{\textbackslash*calcula cuanta plata se reparte del fondo común*\textbackslash}\\
+\aux{unidadFondoComun}{\In recursos: \TLista{\float}, \In cooperan: \TLista{\bool}}{\float}{
+\\\hspace*{2em}(\sum_{i=0}^{|recursos|-1} \IfThenElse{cooperan[i]}{recursos[i]}{0})/|recursos|
+}
+
+\textbf{\\ \textbackslash*a partir de aca no usé nada*\textbackslash}\\
+\aux{recurso}{n,co,ap,pa,ev}{\float}{\IfThenElse{co[n]}{fondo(n,co,ap,pa,ev)}{(tr[n][TIEMPO-1]*ap[n][ev[n][TIEMPO]*pa[n][ev[n][TIEMPO])+FONDO})}
+
+\aux{obtenerRecursos}{\In p: \ent, \Inout trayectorias : \TLista{\TLista{\float}}}{\float}{
+\\\hspace*{2em} res \iff \paraTodo[unalinea]{n}{\ent}{(0 \leq n < |trayectorias|) \yLuego (res = trayectorias[n][p])}
+}
+
 \asegura{\paraTodo[unalinea]{n}{\ent}{0 \leq n < |tr| \yLuego setAt(tr,n,\conc{tr[n],recurso})}}
 \aux{recurso}{n,co,ap,pa,ev}{\float}{\IfThenElse{co[n]}{fondo(n,co,ap,pa,ev)}{(tr[n][TIEMPO-1]*ap[n][ev[n][TIEMPO]*pa[n][ev[n][TIEMPO])+FONDO})}
 %
