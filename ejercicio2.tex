@@ -17,18 +17,7 @@
 \asegura{
 \paraTodo[unalinea]{p}{\ent}{enRango(p,|eventos[0]|)\yLuego(\paraTodo[unalinea]{i}{\ent}{enRango(i,|cooperan|)}\yLuego \\ trayectorias[i][p+1]=\IfThenElse{cooperan[i]}{ufc(p)}{ufc(p)+gananciaEnP[i]})}}
 %
-\hfill\\
-\aux{cuantoGanaron}{recursos : \TLista{\float}, apuestas : \TLista{\TLista{\float}}, pagos : \TLista{\TLista{\float}}, eventosPaso :  \TLista{\nat}}{\TLista{\float}}{
-\\\hspace*{2em}\sum_{i=0}^{|recursos|-1}{\langle recursos[i]\cdot apuestas[i][eventosPaso[i]] \cdot  pagos[i][eventosPaso[i]] \rangle}
-}
-%
-\aux{gananciaEnP}{p: \ent}{\float}{
-\\\hspace*{2em}cuantoGanaron(trayectorias^T[p], apuestas, pagos, eventos^T[p])
-}
-%
-\aux{ufc}{p: \ent}{\float}{
-\\\hspace*{2em}gananciaEnP(p)/|cooperan|
-}
+
 %
 %\par{\textbackslash*i es el índice del individuo, p es el paso en el que estamos*\textbackslash}\\
 %\aux{cuantoGano}{\In i: \ent, \In p: \ent}{\float}{trayectorias[i][p]*apuestas[i][eventos[i][p]]*pagos[i][eventos[i][p]]}
@@ -38,8 +27,5 @@
 
 % \hfill\\
 % \texttt{donde $ganaciaEnP=cuantoGanaron(trayectoria^T[p], apuestas, pagos, eventos^T[p])$}
-\begin{verbatim}
-    donde ufc = unidadFondoComun(gananciaEnP, cooperan)
-\end{verbatim}
 \end{proc}
 \end{document}

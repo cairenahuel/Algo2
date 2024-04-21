@@ -9,4 +9,19 @@
 \paraTodo[unalinea]{i}{\ent}{enRango(i, lista)\yLuego lista[i]>0}
 }
 \pred{esRectangular}{matriz: \TLista{\TLista{T}}}{\paraTodo[unalinea]{i}{\ent}{enRango(i,tail(matriz))\yLuego |matriz[i]|=|matriz[i+1]|}}
+\hfill\\
+
+\aux{cuantoGanaron}{recursosPaso : \TLista{\float}, apuestas : \TLista{\TLista{\float}}, pagos : \TLista{\TLista{\float}}, eventosPaso :  \TLista{\nat}}{\TLista{\float}}{
+\\\hspace*{2em}\sum_{i=0}^{|recursosPaso|-1}{\langle recursosPaso[i]\cdot apuestas[i][eventosPaso[i]] \cdot  pagos[i][eventosPaso[i]] \rangle}
+}
+\hfill\\
+%en eventosPaso tengo que poner eventos T [p]
+%en recursos tengo que poner trayectorias T [p] en ese paso de tiempo
+\aux{gananciaEnP}{p: \ent, recursosPaso : \TLista{\float}, apuestas : \TLista{\TLista{\float}}, pagos : \TLista{\TLista{\float}}, eventosPaso :  \TLista{\nat}}{\float}{
+\\\hspace*{2em}cuantoGanaron(recursosPaso, apuestas, pagos, eventosPaso)[p]
+}
+\hfill\\
+\aux{ufc}{p: \ent, coop:\TLista{\bool}, recPaso : \TLista{\float}, apuestas : \TLista{\TLista{\float}}, pagos : \TLista{\TLista{\float}}, evtPaso :  \TLista{\nat} }{\float}{
+\\\hspace*{2em}gananciaEnP(p, recPaso, apuestas, pagos, evtPaso)/|coop|
+}
 \end{document}
