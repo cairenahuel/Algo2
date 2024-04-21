@@ -15,7 +15,17 @@
 %
 \hfill \\
 \asegura{
-\paraTodo[unalinea]{p}{\ent}{enRango(p,|eventos[0]|)\yLuego(\paraTodo[unalinea]{i}{\ent}{enRango(i,|cooperan|)}\yLuego \\ trayectorias[i][p+1]=\IfThenElse{cooperan[i]}{ufc(p)}{ufc(p)+gananciaEnP[i]})}}
+\paraTodo[unalinea]{p}{\ent}{enRango(p,|eventos[0]|)\yLuego(\paraTodo[unalinea]{i}{\ent}{ enRango(i,|cooperan|)}\yLuego \\ trayectorias[i][p+1]=\IfThenElse{cooperan[i]\\\hspace*{1em}}
+{ufcPaso(coop, recP[p], aps, pgs, evtP[p])\\\hspace*{1em}}
+{ufcPaso(coop, recP[p], aps, pgs, evtP[p] + cuantoGanaron(recP[p], aps, pgs, evtP[p])[i]})}}
+\texttt{
+\\donde $cp = cooperan$
+\\donde $recP = trayectorias^{T}$
+\\donde $evtP = eventos^{T}$
+\\donde $aps = apuestas$
+\\donde $pgs = pagos$
+}
+\hfill \\
 %
 
 %
