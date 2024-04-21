@@ -3,6 +3,11 @@
 *.Rcheck/
 **/__pycache__/
 
+# Ignora auxiliares de latex
+*.aux
+*.log
+*.synctex
+
 ########################
 # Archivos que NO ignora
 
