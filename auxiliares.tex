@@ -1,6 +1,7 @@
 \documentclass[document.tex]{subfiles}
 \begin{document}
 
+% unidadFondoCommun original
 \aux{unidadFondoComun}{recursos: \TLista{\float}, cooperan: \TLista{\bool}}{\float}{\\(\sum_{i=0}^{|recursos|-1} \IfThenElse{cooperan[i]}{recursos[i]}{0})/|recursos|}
 \hfill\\
 \pred{enRango}{i: \ent, lista: \TLista{\nat}}{0\leq i<|lista|}
@@ -16,12 +17,14 @@
 }
 \hfill\\
 %en eventosPaso tengo que poner eventos T [p]
-%en recursos tengo que poner trayectorias T [p] en ese paso de tiempo
-\aux{gananciaEnP}{p: \ent, recursosPaso : \TLista{\float}, apuestas : \TLista{\TLista{\float}}, pagos : \TLista{\TLista{\float}}, eventosPaso :  \TLista{\nat}}{\float}{
-\\\hspace*{2em}cuantoGanaron(recursosPaso, apuestas, pagos, eventosPaso)[p]
-}
-\hfill\\
-\aux{ufc}{p: \ent, coop:\TLista{\bool}, recPaso : \TLista{\float}, apuestas : \TLista{\TLista{\float}}, pagos : \TLista{\TLista{\float}}, evtPaso :  \TLista{\nat} }{\float}{
-\\\hspace*{2em}gananciaEnP(p, recPaso, apuestas, pagos, evtPaso)/|coop|
+%en recursosPaso tengo que poner trayectorias T [p] en ese paso de tiempo
+%	\aux{gananciaEnP}{p: \ent, recursosPaso : \TLista{\float}, apuestas : \TLista{\TLista{\float}}, pagos : \TLista{\TLista{\float}}, eventosPaso :  \TLista{\nat}}{\float}{
+%	\\\hspace*{2em}cuantoGanaron(recursosPaso, apuestas, pagos, eventosPaso)[p]
+%	}
+% saco gananciaEnP por redundancia 
+% usamos cuantoGanaron[ind]
+\aux{ufc}{coop:\TLista{\bool}, recPaso : \TLista{\float}, apuestas : \TLista{\TLista{\float}}, pagos : \TLista{\TLista{\float}},evtPaso :  \TLista{\nat} }{\float}{
+%\\\hspace*{2em}cuantoGanaron(recPaso, apuestas, pagos, evtPaso)[p]/|coop|
+\\\hspace*{2em}unidadFondoComun(cuantoGanaron(recPaso, apuestas, pagos, evtPaso), coop)
 }
 \end{document}
