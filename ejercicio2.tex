@@ -27,7 +27,7 @@
 }
 
 \aux{gananciaEnP}{p: \ent}{\float}{
-\\\hspace*{2em}cuantoGanaron(trayectoria^T[p], apuestas, pagos, eventos^T[p])
+\\\hspace*{2em}cuantoGanaron(trayectorias^T[p], apuestas, pagos, eventos^T[p])
 }
 
 \aux{ufc}{p: \ent}{\float}{
@@ -44,9 +44,6 @@
 % \texttt{donde $ganaciaEnP=cuantoGanaron(trayectoria^T[p], apuestas, pagos, eventos^T[p])$}
 \begin{verbatim}
     donde ufc = unidadFondoComun(gananciaEnP, cooperan)
-    donde individuosLen = cooperan.len
-    donde pasosLen = eventos[0].len
-    donde pagosLen = pagos[0][0].len
 \end{verbatim}
 \end{proc}
 \end{document}
