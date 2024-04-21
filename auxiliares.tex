@@ -12,7 +12,7 @@
 \pred{esRectangular}{matriz: \TLista{\TLista{T}}}{\paraTodo[unalinea]{i}{\ent}{enRango(i,tail(matriz))\yLuego |matriz[i]|=|matriz[i+1]|}}
 \hfill\\
 
-\aux{cuantoGanaron}{recursosPaso : \TLista{\float}, apuestas : \TLista{\TLista{\float}}, pagos : \TLista{\TLista{\float}}, eventosPaso :  \TLista{\nat}}{\TLista{\float}}{
+\aux{cuantoGanaron}{recursosPaso: \TLista{\float}, apuestas: \TLista{\TLista{\float}}, pagos: \TLista{\TLista{\float}}, eventosPaso:  \TLista{\nat}}{\TLista{\float}}{
 \\\hspace*{2em}\sum_{i=0}^{|recursosPaso|-1}{\langle recursosPaso[i]\cdot apuestas[i][eventosPaso[i]] \cdot  pagos[i][eventosPaso[i]] \rangle}
 }
 \hfill\\
@@ -23,7 +23,7 @@
 %	}
 % saco gananciaEnP por redundancia 
 % usamos cuantoGanaron[ind]
-\aux{ufc}{coop:\TLista{\bool}, recPaso : \TLista{\float}, apuestas : \TLista{\TLista{\float}}, pagos : \TLista{\TLista{\float}},evtPaso :  \TLista{\nat} }{\float}{
+\aux{ufcPaso}{coop: \TLista{\bool}, recPaso: \TLista{\float}, apuestas: \TLista{\TLista{\float}}, pagos: \TLista{\TLista{\float}},evtPaso :  \TLista{\nat} }{\float}{
 %\\\hspace*{2em}cuantoGanaron(recPaso, apuestas, pagos, evtPaso)[p]/|coop|
 \\\hspace*{2em}unidadFondoComun(cuantoGanaron(recPaso, apuestas, pagos, evtPaso), coop)
 }
