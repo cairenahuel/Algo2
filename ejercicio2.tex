@@ -14,29 +14,34 @@
 %tiene que haber almenos una unidad de evento para cada persona
 %y creo que tambien deberiamos requerir que todos tengan la misma cantidad de eventos pero no se expresarlo
 %EDIT: segun la resolucion que estoy intentando hacer abajo si, tienen que
+
 \requiere{\paraTodo[unalinea]{n}{\ent}{(enRango(n, eventos) \yLuego |eventos[n]|>0}}
-%\par{\textbackslash*i,p son índices de los individuos y los pasos, respectivamente*\textbackslash}\\
-\asegura{
-	\paraTodo[unalinea]{i,p}{\ent}{recorreIndividuosPasos(i,p) \yLuego \IfThenElse{cooperan[i]}{trayectorias[i][p]=ufc(p)}{trayectorias[i][p]=ufc(p)}}
-}
-\hfill\\
-%\par{\textbackslash*i,p son índices de los individuos y los pasos, respectivamente*\textbackslash}\\
-\pred{recorreIndividuosPasos}{i: \ent, p: \ent}{0 \leq i < individuosLen \yLuego 0 \leq p < pasosLen}
+
 \hfill \\
-%\aux{uFondoComunPPaso}{\in p: \ent, \In recursos: \TLista{\float}, \In cooperan: \TLista{\bool}}{\float}{}
 \asegura{
-\paraTodo[unalinea]{p}{\ent}{enRango(p,|eventos[0]|)\yLuego(\paraTodo[unalinea]{i}{\ent}{enRango(i,|cooperan|)}\yLuego \\ trayectorias[i][p+1]=\IfThenElse{cooperan[i]}{ufc}{ufc+gananciaEnP[i]})}}
+\paraTodo[unalinea]{p}{\ent}{enRango(p,|eventos[0]|)\yLuego(\paraTodo[unalinea]{i}{\ent}{enRango(i,|cooperan|)}\yLuego \\ trayectorias[i][p+1]=\IfThenElse{cooperan[i]}{ufc(p)}{ufc(p)+gananciaEnP[i]})}}
+
 \hfill\\
-\aux{cuantoGanaron}{recursos : \TLista{\float}, apuestas : \TLista{\TLista{\float}}, pagos : \TLista{\TLista{\float}}, eventosPaso :  \TLista{\nat}}{\TLista{\float}}{\\
-\sum_{i=0}^{|recursos|-1}{\langle recursos[i]\cdot apuestas[i][eventosPaso[i]] \cdot  pagos[i][eventosPaso[i]] \rangle}
+\aux{cuantoGanaron}{recursos : \TLista{\float}, apuestas : \TLista{\TLista{\float}}, pagos : \TLista{\TLista{\float}}, eventosPaso :  \TLista{\nat}}{\TLista{\float}}{
+\\\hspace*{2em}\sum_{i=0}^{|recursos|-1}{\langle recursos[i]\cdot apuestas[i][eventosPaso[i]] \cdot  pagos[i][eventosPaso[i]] \rangle}
 }
+
+\aux{gananciaEnP}{p: \ent}{\float}{
+\\\hspace*{2em}cuantoGanaron(trayectoria^T[p], apuestas, pagos, eventos^T[p])
+}
+
+\aux{ufc}{p: \ent}{\float}{
+\\\hspace*{2em}gananciaEnP(p)/|cooperan|
+}
+
 %\par{\textbackslash*i es el índice del individuo, p es el paso en el que estamos*\textbackslash}\\
 %\aux{cuantoGano}{\In i: \ent, \In p: \ent}{\float}{trayectorias[i][p]*apuestas[i][eventos[i][p]]*pagos[i][eventos[i][p]]}
 %\par{\textbackslash*calcula cuanta plata se reparte del fondo común*\textbackslash}\\
 %\aux{unidadFondoComun}{\In recursos: \TLista{\float}, \In cooperan: \TLista{\bool}}{\float}{
 %\\\hspace*{2em}(\sum_{i=0}^{|recursos|-1} \IfThenElse{cooperan[i]}{recursos[i]}{0})/|recursos|
-\hfill\\
-\texttt{donde $ganaciaEnP=cuantoGanaron(trayectoria^T[p], apuestas, pagos, eventos^T[p])$}
+
+% \hfill\\
+% \texttt{donde $ganaciaEnP=cuantoGanaron(trayectoria^T[p], apuestas, pagos, eventos^T[p])$}
 \begin{verbatim}
     donde ufc = unidadFondoComun(gananciaEnP, cooperan)
     donde individuosLen = cooperan.len
