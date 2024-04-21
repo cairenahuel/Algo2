@@ -9,11 +9,11 @@ res=\True \iff
 
 \pred{existeAnterior}{\In s:\TLista{\float}, \In n:\nat}
 {
-0 \leq n < |s| \yLuego 0 \leq n-1 < |s|
+enRango(n,s) \yLuego enRango(n-1,s)
 }
 \pred{existePosterior}{\In s:\TLista{\float}, \In n:\nat}
 {
-0 \leq n < |s| \yLuego 0 \leq n+1 < |s|
+enRango(n,s) \yLuego  enRango(n+1,s)
 }
 \pred{esMaximoLocal}{\In s:\TLista{\float}, \In n:\nat}{
     (existeAnterior(s,n) \implies s[n-1] < s[n])
