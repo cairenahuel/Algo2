@@ -15,30 +15,23 @@
 %y creo que tambien deberiamos requerir que todos tengan la misma cantidad de eventos pero no se expresarlo
 %EDIT: segun la resolucion que estoy intentando hacer abajo si, tienen que
 \requiere{\paraTodo[unalinea]{n}{\ent}{(0 \leq n < |eventos|) \yLuego |eventos[n]|>0}}
-
-\hfill \\
 %\par{\textbackslash*i,p son índices de los individuos y los pasos, respectivamente*\textbackslash}\\
 \asegura{
 	\paraTodo[unalinea]{i,p}{\ent}{recorreIndividuosPasos(i,p) \yLuego \IfThenElse{cooperan[i]}{trayectorias[i][p]=ufc(p)}{trayectorias[i][p]=ufc(p)}}
 }
-
-\hfill \\
+\hfill\\
 %\par{\textbackslash*i,p son índices de los individuos y los pasos, respectivamente*\textbackslash}\\
 \pred{recorreIndividuosPasos}{\In i: \ent, \In p: \ent}{0 \leq i < individuosLen \yLuego 0 \leq p < pasosLen}
-
 \hfill \\
 %\par{\textbackslash*i es el índice del individuo, p es el paso en el que estamos*\textbackslash}\\
 \aux{cuantoGano}{\In i: \ent, \In p: \ent}{\float}{trayectorias[i][p]*apuestas[i][eventos[i][p]]*pagos[i][eventos[i][p]]}
-
-\hfill \\
 %\par{\textbackslash*calcula cuanta plata se reparte del fondo común*\textbackslash}\\
-\aux{unidadFondoComun}{\In recursos: \TLista{\float}, \In cooperan: \TLista{\bool}}{\float}{
-\\\hspace*{2em}(\sum_{i=0}^{|recursos|-1} \IfThenElse{cooperan[i]}{recursos[i]}{0})/|recursos|
-}
-\textbf{\\
-donde individuosLen = cooperan.len \\
-donde pasosLen = eventos[0].len \\
-donde pagosLen = pagos[0][0].len \\
-}
+%\aux{unidadFondoComun}{\In recursos: \TLista{\float}, \In cooperan: \TLista{\bool}}{\float}{
+%\\\hspace*{2em}(\sum_{i=0}^{|recursos|-1} \IfThenElse{cooperan[i]}{recursos[i]}{0})/|recursos|
+\begin{verbatim}
+    donde individuosLen = cooperan.len
+    donde pasosLen = eventos[0].len
+    donde pagosLen = pagos[0][0].len
+\end{verbatim}
 \end{proc}
 \end{document}

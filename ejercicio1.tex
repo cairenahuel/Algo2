@@ -6,7 +6,10 @@
 \requiere{\paraTodo[unalinea]{n}{\ent}{(0 \leq n < |recursos| \yLuego recursos[n]>0)}}
 \asegura{|res|=|recursos|}
 \asegura{\paraTodo[unalinea]{n}{\ent}{0 \leq n < |res| \implicaLuego res[n]=(\IfThenElse{cooperan[n]}{ufc}{recursos[n]+ufc})}}
-\aux{unidadFondoComun}{\In recursos: \TLista{\float}, \In cooperan: \TLista{\bool}}{\float}{\\(\sum_{i=0}^{|recursos|-1} \IfThenElse{cooperan[i]}{recursos[i]}{0})/|recursos|}
-\textbf{\\donde ufc=unidadFondoComun(recursos, cooperan)}
+%\aux{unidadFondoComun}{\In recursos: \TLista{\float}, \In cooperan: \TLista{\bool}}{\float}{\\(\sum_{i=0}^{|recursos|-1} \IfThenElse{cooperan[i]}{recursos[i]}{0})/|recursos|}
+%\texttt{\hspace{0.5cm} donde ufc=unidadFondoComun(recursos, cooperan)}
+\begin{verbatim}
+    donde ufc=unidadFondoComun(recursos, cooperan)}
+\end{verbatim}
 \end{proc}
 \end{document}
