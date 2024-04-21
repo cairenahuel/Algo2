@@ -3,9 +3,9 @@
 \begin{proc}{redistribucionDeLosFrutos}{\In recursos : \TLista{\float}, \In cooperan: \TLista{\bool}}{\TLista{\float}}
 \requiere{|recursos|=|cooperan|}
 %\requiere{|recursos|>0} no parece hacer falta pero ¿esta de mas ponerla?
-\requiere{\paraTodo[unalinea]{n}{\ent}{(0 \leq n < |recursos| \yLuego recursos[n]>0)}}
+\requiere{\paraTodo[unalinea]{n}{\ent}{todosPositivos(n,recursos)}}
 \asegura{|res|=|recursos|}
-\asegura{\paraTodo[unalinea]{n}{\ent}{0 \leq n < |res| \implicaLuego res[n]=(\IfThenElse{cooperan[n]}{ufc}{recursos[n]+ufc})}}
+\asegura{\paraTodo[unalinea]{n}{\ent}{enRango(n, res) \implicaLuego res[n]=(\IfThenElse{cooperan[n]}{ufc}{recursos[n]+ufc})}}
 %\aux{unidadFondoComun}{\In recursos: \TLista{\float}, \In cooperan: \TLista{\bool}}{\float}{\\(\sum_{i=0}^{|recursos|-1} \IfThenElse{cooperan[i]}{recursos[i]}{0})/|recursos|}
 %\texttt{\hspace{0.5cm} donde ufc=unidadFondoComun(recursos, cooperan)}
 \begin{verbatim}
