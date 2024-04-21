@@ -36,3 +36,6 @@
 !Makefile
 !.keep
 !.gitignore
+!*.png
+!*.jpg
+!*.jpng
