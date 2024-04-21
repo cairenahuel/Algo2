@@ -3,37 +3,33 @@
 %
 \begin{proc}{trayectoriaDeLosFrutosIndividualesALargoPlazo}{\Inout trayectorias : \TLista{\TLista{\float}},\\ \In cooperan : \TLista{\bool}, \In apuestas : \TLista{\TLista{\float}}, \In pagos : \TLista{\TLista{\float}}, \In eventos : \TLista{\TLista{\nat}}}{}
 \requiere{|trayectorias|=|cooperan|=|apuestas|=|pagos|=|eventos|}
-
-% cada columna de pagos y apuestas representa el índice de un evento.
-% por lo tanto, además de igual número de usuarios, deben tener igual número de eventos.
-% entonces, tienen mismo número de filas que de columnas.
-
-\requiere{\paraTodo[unalinea]{i}{\ent}{(enRango(i, individuosLen) \yLuego (|pagos[i]|=|apuestas[i]| )}}
-\requiere{\paraTodo[unalinea]{i}{\ent}{(enRango(i, individuosLen) \yLuego (|trayectorias[i]|=1 \yLuego trayectorias[i][0]>0)}}
-\requiere{\paraTodo[unalinea]{i,k}{\ent}{(enRango(i, individuosLen), enRango(k, pagosLen) \yLuego (|pagos[i]|, |pagos[i][k]|>0) }}
-%tiene que haber almenos una unidad de evento para cada persona
-%y creo que tambien deberiamos requerir que todos tengan la misma cantidad de eventos pero no se expresarlo
-%EDIT: segun la resolucion que estoy intentando hacer abajo si, tienen que
-
+%
+\requiere{\paraTodo[unalinea]{i}{\ent}{(enRango(i, |cooperan|) \yLuego (|pagos[i]|=|apuestas[i]| )}}
+\requiere{\paraTodo[unalinea]{i}{\ent}{(enRango(i, |cooperan|) \yLuego (|trayectorias[i]|=1 \yLuego trayectorias[i][0]>0)}}
+%
+%no se que quisiste hacer aca nahue r
+%\requiere{\paraTodo[unalinea]{i,k}{\ent}{(enRango(i, |cooperan|), enRango(k, |pagos|) \yLuego (|pagos[i]|, |pagos[i][k]|>0) }}
+%
 \requiere{\paraTodo[unalinea]{n}{\ent}{(enRango(n, eventos) \yLuego |eventos[n]|>0}}
-
+\requiere{esRectangular(eventos)\yLuego esRectangular(pagos)\yLuego esRectangular(apuestas)}
+%
 \hfill \\
 \asegura{
 \paraTodo[unalinea]{p}{\ent}{enRango(p,|eventos[0]|)\yLuego(\paraTodo[unalinea]{i}{\ent}{enRango(i,|cooperan|)}\yLuego \\ trayectorias[i][p+1]=\IfThenElse{cooperan[i]}{ufc(p)}{ufc(p)+gananciaEnP[i]})}}
-
+%
 \hfill\\
 \aux{cuantoGanaron}{recursos : \TLista{\float}, apuestas : \TLista{\TLista{\float}}, pagos : \TLista{\TLista{\float}}, eventosPaso :  \TLista{\nat}}{\TLista{\float}}{
 \\\hspace*{2em}\sum_{i=0}^{|recursos|-1}{\langle recursos[i]\cdot apuestas[i][eventosPaso[i]] \cdot  pagos[i][eventosPaso[i]] \rangle}
 }
-
+%
 \aux{gananciaEnP}{p: \ent}{\float}{
 \\\hspace*{2em}cuantoGanaron(trayectorias^T[p], apuestas, pagos, eventos^T[p])
 }
-
+%
 \aux{ufc}{p: \ent}{\float}{
 \\\hspace*{2em}gananciaEnP(p)/|cooperan|
 }
-
+%
 %\par{\textbackslash*i es el índice del individuo, p es el paso en el que estamos*\textbackslash}\\
 %\aux{cuantoGano}{\In i: \ent, \In p: \ent}{\float}{trayectorias[i][p]*apuestas[i][eventos[i][p]]*pagos[i][eventos[i][p]]}
 %\par{\textbackslash*calcula cuanta plata se reparte del fondo común*\textbackslash}\\
