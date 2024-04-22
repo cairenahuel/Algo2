@@ -30,6 +30,8 @@
 	(\paraTodo[unalinea]{i}{\nat}{enRango(i, apuesta) \yLuego apuesta[i] \geq 0}) \yLuego (\sum_{i=0}^{|apuesta|-1}{apuesta[i]} = 1)
 }
 \hfill\\
-\aux{distribucionPaso}{cosas}{\TLista{\float}}{\\\sum_{i=0}^{|coop|-1}{\langle  \IfThenElse{coop[i]}{ufcPaso(cosas)}{cuantoGanaron(cosas)[i]+ufcPaso(cosas)}\rangle}}
-\aux{trayectoriaFinal}{cosas}{\TLista{\TLista{\float}}}{\sum_{i=0}^{|eventos|-1}\langle distribucionPaso(cosas)\rangle}
+\aux{distribucionPaso}{in p, in coop: \TLista{\bool},in recPaso: \TLista{\float},in apuestas: \TLista{\TLista{\float}},in pagos: \TLista{\TLista{\float}},in evtPaso :  \TLista{\nat}}{\TLista{\float}}{\sum_{i=0}^{|coop|-1} \langle \IfThenElse{coop[i]\\\hspace*{2em}}{ufcPaso(coop, recPaso, apuestas, pagos, evtPaso)\\\hspace*{2em}}{cuantoGanaron(recPaso, apuestas, pagos, evtPaso)[i]+ufcPaso(coop, recPaso, apuestas, pagos, evtPaso)} \rangle}
+\hfill\\
+\aux{trayectoriaFinal}{in coop: \TLista{\bool},in recPasos: \TLista{\float},in apuestas: \TLista{\TLista{\float}},\\in pagos: \TLista{\TLista{\float}},in evtPaso :  \TLista{\nat}}{\TLista{\TLista{\float}}}{\\\sum_{p=0}^{|eventos|-1}\langle distribucionPaso(p, coop, recPasos, apuestas, pagos, evtPaso)\rangle}
+ 
 \end{document}
