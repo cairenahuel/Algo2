@@ -1,0 +1,36 @@
+\documentclass[document.tex]{subfiles}
+\begin{document}
+%\begin{center}
+Vemos que si $pc\implies I$ por hipotesis, $i=0$ y $res=recursos$\\
+Si $i=0 \implies 0\leq i < |eventos|$ se cumple\\
+Además $S_e(i)=subset(eventos,0,0)=\emptyset$\\
+por lo tanto $\#(S_e(i),T)=0$ y $\#(S_e(i),F)=0$
+\begin{equation}
+res=r\cdot(a_c\cdot p_c)^0\cdot (a_s\cdot p_s)^0=recursos
+\end{equation}
+\begin{equation}
+(i=0 \yLuego res=r)\implies (0\leq i < |eventos| \yLuego res=r\cdot(a_c\cdot p_c)^{\#(S_c(i),T)}\cdot(a_s\cdot p_s)^{\#(S_s(i),F)})
+\end{equation}\\
+Vemos que $I\land ¬B \implies Q_c$\\
+Por hipótesis\\
+\begin{equation}
+(\forall i \in \ent):o \leq i \leq |eventos| \yLuego res=r\cdot (a_c\cdot p_c)^{\#S_c(i),T}\cdot (a_s\cdot p_s)^{\#S_s(i),F}
+\end{equation}
+\begin{equation}
+i=|eventos| \text{ Es la negacion de B pues es el mayor valor de $i$ posible\\}
+\end{equation}
+\begin{equation}
+\implies S_c(i)=subset(eventos, 0, |eventos|)=eventos\\
+\end{equation}
+\begin{equation}
+\implies \#(S_c(i),T)=\#(eventos,T)\yLuego \#(S_c(i),F)=\#(eventos,F)\\
+\end{equation}
+\begin{equation}
+\implies res=r\cdot (a_c\cdot p_c)^{\#(eventos,T)}\cdot (a_s\cdot p_s)^{\#(eventos,F)}
+\end{equation}
+Luego\\
+$(I\land¬B)\implies Q_c$ vale.
+Vemos que:
+${I\land B} S {I}$	es una tripla de Hoare válida.
+%\end{center}
+\end{document}
