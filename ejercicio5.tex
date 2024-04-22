@@ -1,7 +1,25 @@
 \documentclass[document.tex]{subfiles}
+\usepackage{amssymb}
 \begin{document}
-\begin{proc}{individuoActualizaApuesta}{\In $individuo$: \nat, \In $recursos$: \TLista{\float}, \In $cooperan$: \TLista{\bool}, \Inout $apuestas$: \TLista{\TLista{\float}}, \In $pagos$: \TLista{\TLista{\float}}, \In $eventos$: \TLista{\TLista{\nat}}}{\\
-	\requiere {}
-}
+\begin{proc}{individuoActualizaApuesta}{\In $individuo$: \nat, \In $recursos$: \TLista{\float}, \In $cooperan$: \TLista{\bool}, \Inout $apuestas$: \TLista{\TLista{\float}}, \In $pagos$: \TLista{\TLista{\float}}, \In $eventos$: \TLista{\TLista{\nat}}}{}
+	% tienen misma cantidad de individuos
+	\requiere {|recursos| = |cooperan| = |apuestas| = |pagos| = |eventos| > 0}
+	% tienen misma cantidad de eventos
+	\requiere{\paraTodo[unalinea]{i}{\ent}{(enRango(i, |cooperan|) \yLuego (|pagos[i]|=|apuestas[i]| )}}
+	\requiere{\paraTodo[unalinea]{i}{\ent}{(enRango(i, eventos) \yLuego |eventos[i]|>0}}
+	% los pasos temporales los vamos a estar calculando nosotros
+	\requiere{esRectangular(eventos)\yLuego esRectangular(pagos)\yLuego esRectangular(apuestas)}
+	\requiere{\paraTodo[unalinea]{i}{\ent}{esApuestaValida(apuestas[i])}}
+	\asegura{\exists mejorApuesta \yLuego esApuestaValida(mejorApuesta) \yLuego
+		\\\hspace*{2em}\paraTodo[unalinea]{n}{\nat}{enRango(n,todasLasApuestas) \yLuego\\
+		\hspace*{2em}trayectoriaFinal(parametros,mejorApuesta) \geq trayectoriaFinal(parametros, otraApuesta)
+		}
+	}
+	\asegura{apuestas[individuo] = mejorApuesta}
+	\aux{todasLasApuestasPosibles}{\In longitudApuesta: \nat}{\TLista{\TLista{\float}}}{
+		\\\hspace*{2em}\sum_{i=0}^{|eventos|-1}\langle distribucionPaso(cosas)\rangle
+		\\\hspace*{2em}\paraTodo[unalinea]{n}{\nat}{apuestasPosibles}
+		\\\hspace*{2em}\paraTodo[unalinea]{i}{\nat}{i < longitudApuesta}
+	}
 \end{proc}
 \end{document}

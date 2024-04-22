@@ -31,5 +31,10 @@
 }
 \hfill\\
 \aux{distribucionPaso}{cosas}{\TLista{\float}}{\\\sum_{i=0}^{|coop|-1}{\langle  \IfThenElse{coop[i]}{ufcPaso(cosas)}{cuantoGanaron(cosas)[i]+ufcPaso(cosas)}\rangle}}
+\hfill\\
 \aux{trayectoriaFinal}{cosas}{\TLista{\TLista{\float}}}{\sum_{i=0}^{|eventos|-1}\langle distribucionPaso(cosas)\rangle}
+\hfill\\
+\aux{cuantoGanoAlFinal}{\In trayectorias: \TLista{\TLista{\float}}, \In individuo: \nat}{\float}{
+	\\\hspace*{2em}(trayectorias[i][|trayectorias[0]|-1) - trayectorias[i][0]]
+}
 \end{document}
