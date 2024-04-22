@@ -30,4 +30,6 @@
 	(\paraTodo[unalinea]{i}{\nat}{enRango(i, apuesta) \yLuego apuesta[i] \geq 0}) \yLuego (\sum_{i=0}^{|apuesta|-1}{apuesta[i]} = 1)
 }
 \hfill\\
+\aux{distribucionPaso}{cosas}{\TLista{\float}}{\\\sum_{i=0}^{|coop|-1}{\langle  \IfThenElse{coop[i]}{ufcPaso(cosas)}{cuantoGanaron(cosas)[i]+ufcPaso(cosas)}\rangle}}
+\aux{trayectoriaFinal}{cosas}{\TLista{\TLista{\float}}}{\sum_{i=0}^{|eventos|-1}\langle distribucionPaso(cosas)\rangle}
 \end{document}
