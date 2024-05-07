@@ -1,0 +1,30 @@
+\usepackage{changepage}
+\newcommand{\tbft}[2]{\par\addvspace{\baselineskip}\textbf{#1}\hspace{0.35em}{#2}\\\par\addvspace{\baselineskip}}
+\newcommand{\ejercicio}[2]{\par\addvspace{\baselineskip}\textbf{Ejercicio #1.}\hspace{0.35em}{#2}\\\par\addvspace{\baselineskip}}
+% \ejercicio{NUMERO}{ENUNCIADO}
+%   Devuelve
+% Ejercicio NUMERO. ---- ENUNCIADO ----
+%
+%salto de linea comodo
+\newcommand{\salto}[1]{\par\addvspace{#1}}
+%
+% si y solo si corto y largo
+\newcommand{\sii}{\leftrightarrow}
+\newcommand{\siiLargo}{\longleftrightarrow}
+\newcommand{\slr}[1]{\ensuremath{\langle #1\rangle}}
+\newcommand{\encabezadoTAD}[1]{\par\salto{1ex}\noindent TAD\ \ \normalfont\ttfamily#1 }
+\newenvironment{tad}[1]{
+\newcommand{\nombretad}{{\ttfamily#1}}
+\newcommand{\nt}{\nombretad}
+\newcommand{\obs}[2]{\par\noindent{\ttfamily obs} ##1: ##2\par}
+\encabezadoTAD{#1}\{
+    \begin{adjustwidth}{3em}{0em}}
+{\end{adjustwidth}\par\}}
+% \begin{tad}{nombre del tad}
+%   AGREGAR UN OBSERVADOR
+%     \obs{nombre observador}{tipo}
+%     \nombretad <---------- DEVUELVE EL NOMBRE DEL TAD (du)
+%
+%   y aca se pueden usar todos los procs y cosas de la catedra
+%
+%     \end{tad}

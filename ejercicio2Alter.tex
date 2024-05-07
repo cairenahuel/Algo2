@@ -1,0 +1,9 @@
+\documentclass[document.tex]{subfiles}
+\begin{document}
+\begin{proc}{trayectoriaDeLosFrutosIndividualesALargoPlazo}{\Inout trayectorias : \TLista{\TLista{\float}},\\ \In cooperan : \TLista{\bool}, \In apuestas : \TLista{\TLista{\float}}, \In pagos : \TLista{\TLista{\float}}, \In eventos : \TLista{\TLista{\nat}}}{}
+\requiere{|trayectorias|=|cooperan|=|eventos|=|pagos|=|apuestas|}
+\requiere{\paraTodo[unalinea]{i}{\ent}{enRango(i,trayectorias)\yLuego |trayectorias[i]|=1\land trayectorias[i]>0}}
+\asegura{\paraTodo[unalinea]{i}{\ent}{enRango(i,trayectorias)\yLuego \paraTodo[unalinea]{t}{\ent}{enRango(t,trayectorias[i])\yLuego\\
+trayectorias[i][t+1]\IfThenElse{cooperan[i]}{PENSAR UFC}{\prod_{k=0}^{t} trayectorias[k]*apuestas[eventos[i][k]]*pagos[eventos[i][k]]}}}}
+\end{proc}
+\end{document}
