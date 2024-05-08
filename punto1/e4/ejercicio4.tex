@@ -1,0 +1,39 @@
+\documentclass[document.tex]{subfiles}
+\begin{document}
+\begin{proc}{individuoDecideSiCooperarONo}{\In individuo: \nat, \In recursos: \TLista{\float}, \Inout cooperan: \TLista{\bool}, \In apuestas : \TLista{\TLista{\float}}, \In pagos : \TLista{\TLista{\float}}, \In eventos : \TLista{\TLista{\nat}}}{}
+\asegura{cooperan[individuo]=\True \iff \\trayectoriasFinales(cooperan,recursos,apuestas,pagos,eventos)[individuo][|eventos[0]|]\\\hspace{10em}>\\trayectoriasFinales(setAt(cooperan,individuo,\False),recursos,apuestas,pagos,eventos)[individuo][|eventos[0]|]}
+\end{proc}
+\anotacion{-------------------- aplico la correccion del profe(hago el ejercicio de cero en realidad)}
+\begin{proc}{individuoDecideSiCooperarONo}{\In individuo: \nat, \In recursos: \TLista{\float}, \Inout cooperan: \TLista{\bool}, \In apuestas : \TLista{\TLista{\float}}, \In pagos : \TLista{\TLista{\float}}, \In eventos : \TLista{\TLista{\nat}}}{}
+    \requiere{cooperan=COOPERAN_0}
+    \requiere{todosPositivos(recursos)}
+    \requiere{|recursos|=|cooperan|=|eventos|=|pagos|=|apuestas|}
+    \requiere{esRectangular(eventos)\yLuego esRectangular(pagos)\yLuego esRectangular(apuestas)}
+    \requiere{\paraTodo[unalinea]{i}{\ent}{(enRango(i, eventos) \yLuego |eventos[i]|>0}}
+    \requiere{\paraTodo[unalinea]{i}{\ent}{(enRango(i, |cooperan|) \yLuego (|pagos[i]|=|apuestas[i]|)}}
+    \requiere{enRango(individuo, cooperan)}
+    \asegura{|cooperan|=|COOPERAN_0|}
+    \asegura{\paraTodo[unalinea]{i}{\ent}{i\not=individuo\yLuego cooperan[i]=COOPERAN_0[i]}}
+    \asegura{cooperan[individuo]=true \sii \text{\anotacionns[red]{¿y acá?}}}
+    \anotacion[red]{candidatos:}
+    \asegura{calculoTrayectoria(trayectorias, setAt(cooperan, individuo-1, true), apuestas, pagos, eventos)}    
+    \aux{calculoTrayectoria}{tr: \TLista{\TLista{\float}}, co: \TLista{\bool}, ap: \TLista{\TLista{\float}}, pa: \TLista{\TLista{\float}}, ev: \TLista{\TLista{\nat}}}{\TLista{\TLista{\float}}}{
+    {\anotacionns[red]{y acá hacer basicamente la cuenta del 2}}}
+    \anotacionns[red]{el problema es que en el dos la cuenta no es una simple cuenta matematica y implica para todos y indices precisos, que no creo que se puedan usar en un aux}
+    \anotacion[olive]{candidato 2:}
+    \requiere{\slr{recursos}=trayectorias}
+    \requiere{\paraTodo[unalinea]{t}{\ent}{1\leq t \leq |eventos[0]|\yLuego concat(trayectorias, calcularPaso(trayectorias,blablabla))}}
+    \anotacion[olive]{candidato 3:}
+    \asegura{cooperan[individuo]=true \sii esLaMejorDecision(individuo, recursos, cooperan, apuestas, pagos, eventos)}
+    
+    \pred{esLaMejorDecision}{i: \nat, re: \TLista{\float}, co: \TLista{\bool}, ap: \TLista{\TLista{\float}}, pa: \TLista{\TLista{\float}}, ev: \TLista{\TLista{\ent}}}
+    {trayectoriasFinales(re, setAt(co, i, true), ap, pa, ev)[i][|eventos|]\ >\\trayectoriasFinales(re, setAt(co, i, false), ap, pa, ev)[i][|eventos|]}
+    
+    \aux{trayectoriasFinales}{re: \TLista{\float}, co: \TLista{\bool}, ap: \TLista{\TLista{\float}}, pa: \TLista{\TLista{\float}}, ev: \TLista{\TLista{\ent}}}{\TLista{\TLista{\float}}}{cuenta}
+    \aux{paso}{t: \ent, re: \TLista{\float}, co: \TLista{\bool}, ap: \TLista{\TLista{\float}}, pa: \TLista{\TLista{\float}}, ev: \TLista{\TLista{\ent}}}{\TLista{\float}}
+    {\paraTodo[unalinea]{i}{\ent}{}}
+    \pred{pasoValido}{t: \ent, re: \TLista{\float}, co: \TLista{\bool}, ap: \TLista{\TLista{\float}}}{
+        \\\paraTodo[unalinea]{i}{\ent}{0\leq i < |co| \yLuego re[i]=\IfThenElse{co[i]}{ufcPaso(cosas)}{cuenta+ufcPaso(cosas)}}
+    }
+\end{proc}
+\end{document}

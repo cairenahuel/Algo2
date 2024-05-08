@@ -1,6 +1,6 @@
 \documentclass[10pt,a4paper]{article}
-\input{AEDmacros}
-\input{nahuelMacros}
+\input{macros/AEDmacros}
+\input{macros/nahuelMacros}
 \usepackage{subfiles}
 \usepackage{caratula} % Version modificada para usar las macros de algo1 de ~> https://github.com/bcardiff/dc-tex
 \usepackage{graphicx} % Required for inserting images
@@ -30,21 +30,21 @@
 \begin{document}
 \maketitle
 \textbf{\Large{Auxiliares y predicados \small{utilizados en mas de un procedimiento.}}}\\
-\subfile{auxiliares}
+\subfile{punto1/auxiliares.tex}
 \section*{Ejercicio 1.1:}
-\subfile{ejercicio1.tex}
+\subfile{punto1/e1/ejercicio1.tex}
 \section*{Ejercicio 1.2:}
-\subfile{ejercicio2Alter.tex}
+\subfile{punto1/e2/ejercicio2Alter.tex}
 \pagebreak
 \section*{Ejercicio 1.3:}
-\subfile{ejercicio3.tex}
+\subfile{punto1/e3/ejercicio3.tex}
 \section*{Ejercicio 1.4:}
-\subfile{ejercicio4.tex}
+\subfile{punto1/e4/ejercicio4.tex}
 \section*{Ejercicio 1.5:}
-\subfile{ejercicio5.tex}
+\subfile{punto1/e5/ejercicio5.tex}
 \section*{Ejercicio 2}
-\subfile{ejercicioIIpreludio.tex}
-\subfile{ejercicioII.tex}
+\subfile{punto2/ejercicioIIpreludio.tex}
+\subfile{punto2/ejercicioII.tex}
 \section*{A los profesores}
 
 Claramente este trabajo práctico está incompleto. En la demostración, no cumplí ninguno de los objetivos planteados al principio. Ni que la poscondición implique el asegura, ni que la precondición implique el requiere. Sin mencionar los dudos métodos deductivos para justificar la validez de los argumentos.
