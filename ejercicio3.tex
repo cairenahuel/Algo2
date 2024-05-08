@@ -1,10 +1,11 @@
 \documentclass[document.tex]{subfiles}
 \begin{document}
 \begin{proc}{trayectoriaExtrañaEscalera}{\In trayectoria:\TLista{\float}}{\bool}
-\requiere{|trayectoria|>0}
+\requiere{|trayectoria|>0\land todosPositivos(trayectoria)}
 \asegura{
 res=\True \iff 
-\existe[unalinea]{!n}{\ent}{esMaximoLocal(trayectoria,n)}
+\existe[unalinea]{n}{\ent}{esMaximoLocal(trayectoria,n) \land
+\\\hspace*{12em}\paraTodo[unalinea]{m}{\ent}{m\not=n\land \lnot esMaximoLocal(trayectoria,m)}}
 }
 
 \pred{existeAnterior}{\In s:\TLista{\float}, \In n:\nat}
