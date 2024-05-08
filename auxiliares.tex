@@ -2,14 +2,18 @@
 \begin{document}
 % unidadFondoCommun original
 \aux{unidadFondoComun}{recursos: \TLista{\float}, cooperan: \TLista{\bool}}{\float}{\\(\sum_{i=0}^{|recursos|-1} \IfThenElse{cooperan[i]}{recursos[i]}{0})/|recursos|}
-\hfill\\
+\anotacion{SE USA $\uparrow$}\hfill\\
+\aux{ufcPaso}{t: \ent, tr: \TLista{\TLista{\float}}, co: \TLista{\bool}, ap : \TLista{\TLista{\float}}, pa : \TLista{\TLista{\float}}, ev : \TLista{\TLista{\nat}}}{\float}{
+	\\\frac{\sum_{i=0}^{|co|-1}(\IfThenElse{co[i]}{tr[i][t]*ap[i][ev[i][t]]*pa[i][ev[i][t]]}{0})}{|co|}
+}
+\anotacion{SE USA $\uparrow$}\hfill\\
 \pred{enRango}{i: \ent, lista: \TLista{\nat}}{0\leq i<|lista|}
-\hfill\\
+\anotacion{SE USA $\uparrow$}\hfill\\
 \pred{todosPositivos}{lista: \TLista{\float}}{
 \paraTodo[unalinea]{i}{\ent}{enRango(i, lista)\yLuego lista[i]>0}
 }
 \pred{esRectangular}{matriz: \TLista{\TLista{T}}}{\paraTodo[unalinea]{i}{\ent}{enRango(i,tail(matriz))\yLuego |matriz[i]|=|matriz[i+1]|}}
-\hfill\\
+\anotacion{SE USA $\uparrow$}\hfill\\
 \aux{cuantoGanaron}{recursosPaso: \TLista{\float}, apuestas: \TLista{\TLista{\float}}, pagos: \TLista{\TLista{\float}}, eventosPaso:  \TLista{\nat}}{\TLista{\float}}{
 \\\hspace*{2em}\sum_{i=0}^{|recursosPaso|-1}{\langle recursosPaso[i]\cdot apuestas[i][eventosPaso[i]] \cdot  pagos[i][eventosPaso[i]] \rangle}
 }

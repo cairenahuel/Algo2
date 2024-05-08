@@ -1,17 +1,22 @@
 \usepackage{changepage}
+\usepackage{xcolor}
 \newcommand{\tbft}[2]{\par\addvspace{\baselineskip}\textbf{#1}\hspace{0.35em}{#2}\\\par\addvspace{\baselineskip}}
 \newcommand{\ejercicio}[2]{\par\addvspace{\baselineskip}\textbf{Ejercicio #1.}\hspace{0.35em}{#2}\\\par\addvspace{\baselineskip}}
 % \ejercicio{NUMERO}{ENUNCIADO}
 %   Devuelve
 % Ejercicio NUMERO. ---- ENUNCIADO ----
 %
-%salto de linea comodo
+%formato
 \newcommand{\salto}[1]{\par\addvspace{#1}}
+\newcommand{\rojo}[1]{{\color{red}#1}}
+\newcommand{\anotacion}[2][red]{\salto{1ex}\noindent\texttt{\color{#1}#2}\salto{1ex}}
+\newcommand{\anotacionns}[2][red]{\noindent\texttt{\color{#1}#2}}
 %
 % si y solo si corto y largo
 \newcommand{\sii}{\leftrightarrow}
 \newcommand{\siiLargo}{\longleftrightarrow}
 \newcommand{\slr}[1]{\ensuremath{\langle #1\rangle}}
+\newcommand{\smm}[1]{\textless #1\textgreater}
 \newcommand{\encabezadoTAD}[1]{\par\salto{1ex}\noindent TAD\ \ \normalfont\ttfamily#1 }
 \newenvironment{tad}[1]{
 \newcommand{\nombretad}{{\ttfamily#1}}
@@ -28,3 +33,9 @@
 %   y aca se pueden usar todos los procs y cosas de la catedra
 %
 %     \end{tad}
+\newcommand{\encabezadoImpl}[2]{\par\salto{1ex}\noindent \textbf{impl}\ \normalfont\ttfamily#1(#2)}
+\newcommand{\asg}[2]{\par\noindent{\ttfamily #1}:= #2\par}
+\newenvironment{impl}[2]{\encabezadoImpl{#1}{#2}\{
+\begin{adjustwidth}{3em}{0em}
+}
+{\end{adjustwidth}\par\}}
