@@ -37,5 +37,17 @@
     \pred{pasoValido}{t: \ent, re: \TLista{\float}, co: \TLista{\bool}, ap: \TLista{\TLista{\float}}}{
         \\\paraTodo[unalinea]{i}{\ent}{0\leq i < |co| \yLuego re[i]=\IfThenElse{co[i]}{ufcPaso(cosas)}{cuenta+ufcPaso(cosas)}}
     }
+    \anotacion[red]{-----------------------SEXO-------------------------------------}
+    {\textquoteleft \textit{nunca a nadie le fue mal en esta materia por el tp}\textquoteright}\\
+    \asegura{\existe[unalinea]{tfc, tfnc}{\TLista{\TLista{\float}}}{|tfc|=|cooperan|\land |tfc[0]|+1=|eventos[0]| \land esRectangular(tfc) \yLuego
+    \\esTrayectoriaValida(tfc, setKey(cooperan,individuo,true),apuestas, pagos, eventos)\yLuego
+    \\|tfnc|=|cooperan|\land |tfnc[0]|+1=|eventos[0]| \land esRectangular(tfnc) \yLuego
+    \\esTrayectoriaValida(tfnc, setKey(cooperan,individuo,false),apuestas, pagos, eventos)\yLuego
+    \\(tfc[individuo][|evento[0]|]\geq tfnc[individuo][|evento[0]|]\sii cooperan[individuo]=true)}}
+    \salto{\baselineskip}
+    \pred{esTrayectoriaValida}{tr: \TLista{\TLista{\float}},co: \TLista{\bool},ap: \TLista{\TLista{\float}},pa: \TLista{\TLista{\float}},ev: \TLista{\TLista{\ent}}}{\paraTodo[unalinea]{t}{\nat}
+    {enRango(t, eventos[1])\yLuego
+    \paraTodo[unalinea]{i}{\ent}{enRango(i, eventos)\yLuego \\tr[i][t+1]=ufcPaso(t,tr,co,ap,pa,ev)+\IfThenElse{co[i]}{0}{tr[i][t]*ap[i][ev[i][t]]*pa[i][ev[i][t]]}}}
+    }
 \end{proc}
 \end{document}

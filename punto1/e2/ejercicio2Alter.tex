@@ -16,7 +16,7 @@
     \asegura{\paraTodo[unalinea]{i}{\ent}{enRango(i,TRAYECTORIAS_0)\yLuego trayectorias[i][0]=TRAYECTORIAS_0[i][0]}}
     \asegura{\paraTodo[unalinea]{i}{\ent}{enRango(i,TRAYECTORIAS_0)\yLuego |trayectorias[i]|=|eventos[i]|+1}}
     \salto{\baselineskip}
-    \asegura{\paraTodo[unalinea]{i}{\ent}{enRango(i,trayectorias)\yLuego \paraTodo[unalinea]{t}{\ent}{(enRango(t,eventos[i])\land t\not=0)\yLuego\\
+    \asegura{\paraTodo[unalinea]{i}{\ent}{enRango(i,trayectorias)\yLuego \paraTodo[unalinea]{t}{\ent}{0\leq t < |eventos[0]|\yLuego\\
     trayectorias[i][t+1]=ufcPaso(t,trayectorias,cooperan,apuestas,pagos,eventos)+\IfThenElse{cooperan[i]}
     {0}
     {\\trayectorias[i][t]*apuestas[i][eventos[i][t]]*pagos[i][eventos[i][t]]
