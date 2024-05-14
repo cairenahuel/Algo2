@@ -10,6 +10,8 @@
 	% los pasos temporales los vamos a estar calculando nosotros
 	\requiere{esRectangular(eventos)\yLuego esRectangular(pagos)\yLuego esRectangular(apuestas)}
 	\requiere{\paraTodo[unalinea]{i}{\ent}{esApuestaValida(apuestas[i])}}
+	\requiere{\paraTodo[unalinea]{i}{\ent}{enRango(i, cooperan)\yLuego \sum_{k=0}^{|apuestas|-1}apuestas[i][k] = 1}}
+
 	\asegura{\exists mejorApuesta \yLuego esApuestaValida(mejorApuesta) \yLuego
 		\\\hspace*{2em}\paraTodo[unalinea]{n}{\nat}{enRango(n,todasLasApuestas) \yLuego\\
 		\hspace*{2em}trayectoriaFinal(parametros,mejorApuesta) \geq trayectoriaFinal(parametros, otraApuesta)

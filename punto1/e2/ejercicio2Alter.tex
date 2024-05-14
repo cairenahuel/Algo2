@@ -1,37 +1,12 @@
-\documentclass[document.tex]{subfiles}
+\documentclass[../../document.tex]{subfiles}
 \begin{document}
-\begin{proc}{trayectoriaDeLosFrutosIndividualesALargoPlazo}{\Inout trayectorias : \TLista{\TLista{\float}},\\ \In cooperan : \TLista{\bool}, \In apuestas : \TLista{\TLista{\float}}, \In pagos : \TLista{\TLista{\float}}, \In eventos : \TLista{\TLista{\nat}}}{}
-\requiere{|trayectorias|=|cooperan|=|eventos|=|pagos|=|apuestas|}
-\requiere{trayectorias=TRAYECTORIAS_0}
-\requiere{\paraTodo[unalinea]{i}{\ent}{enRango(i,trayectorias)\yLuego |trayectorias[i]|=1\land trayectorias[i]>0}}
-\requiere{\paraTodo[unalinea]{i}{\ent}{(enRango(i, eventos) \yLuego |eventos[i]|>0}}
-\requiere{\paraTodo[unalinea]{i}{\ent}{(enRango(i, |cooperan|) \yLuego (|pagos[i]|=|apuestas[i]| )}}
-
-\salto{\baselineskip}
-\requiere{esRectangular(eventos)\yLuego esRectangular(pagos)\yLuego esRectangular(apuestas)}
-\salto{\baselineskip}
-
-\asegura{|TRAYECTORIAS_0|=|trayectorias|}
-\asegura{\paraTodo[unalinea]{i}{\ent}{enRango(i,TRAYECTORIAS_0)\yLuego trayectorias[i][0]=TRAYECTORIAS_0[i][0]}}
-\asegura{\paraTodo[unalinea]{i}{\ent}{enRango(i,TRAYECTORIAS_0)\yLuego |trayectorias[i]|=|eventos[i]|+1}}
-\salto{\baselineskip}
-\asegura{\paraTodo[unalinea]{i}{\ent}{enRango(i,trayectorias)\yLuego \paraTodo[unalinea]{t}{\ent}{enRango(t,eventos[i])\yLuego\\
-trayectorias[i][t+1]=\IfThenElse{cooperan[i]}
-{\\ufcPaso(t,trayectorias,cooperan,apuestas,pagos,eventos)])}
-{\\\prod_{k=0}^{t} (tr[i][k]*ap[ev[i][k]]*pa[ev[i][k]]+ufcPaso(k,tr,co,ap,pa,ev))}}}}
-\end{proc}
-\salto{\baselineskip}
-\aux{ufcPaso}{t: \ent, tr: \TLista{\TLista{\float}}, co: \TLista{\bool}, ap : \TLista{\TLista{\float}}, pa : \TLista{\TLista{\float}}, ev : \TLista{\TLista{\nat}}}{\float}{
-    \\\frac{\sum_{i=0}^{|co|-1}(\IfThenElse{co[i]}{tr[i][t]*ap[i][ev[t]]*pa[i][ev[t]]}{0})}{|co|}
-}
-\anotacion{-------------------- En la siguiente pagina aplico la correccion del profe}
-\pagebreak
 \begin{proc}{trayectoriaDeLosFrutosIndividualesALargoPlazo}{\Inout trayectorias : \TLista{\TLista{\float}},\\ \In cooperan : \TLista{\bool}, \In apuestas : \TLista{\TLista{\float}}, \In pagos : \TLista{\TLista{\float}}, \In eventos : \TLista{\TLista{\nat}}}{}
     \requiere{|trayectorias|=|cooperan|=|eventos|=|pagos|=|apuestas|}
     \requiere{trayectorias=TRAYECTORIAS_0}
     \requiere{\paraTodo[unalinea]{i}{\ent}{enRango(i,trayectorias)\yLuego |trayectorias[i]|=1\land trayectorias[i]>0}}
     \requiere{\paraTodo[unalinea]{i}{\ent}{(enRango(i, eventos) \yLuego |eventos[i]|>0}}
     \requiere{\paraTodo[unalinea]{i}{\ent}{(enRango(i, |cooperan|) \yLuego (|pagos[i]|=|apuestas[i]| )}}
+    \requiere{\paraTodo[unalinea]{i}{\ent}{enRango(i, cooperan)\yLuego \sum_{k=0}^{|apuestas|-1}apuestas[i][k] = 1}}
     
     \salto{\baselineskip}
     \requiere{esRectangular(eventos)\yLuego esRectangular(pagos)\yLuego esRectangular(apuestas)}

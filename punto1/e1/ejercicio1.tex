@@ -7,8 +7,8 @@
 \requiere{\paraTodo[unalinea]{i}{\ent}{enRango(i, cooperan)\yLuego \sum_{k=0}^{|apuestas|-1}apuestas[i][k] = 1}}
 \asegura{|res|=|recursos|}
 \asegura{\paraTodo[unalinea]{n}{\ent}{enRango(n, res) \implicaLuego res[n]=(\IfThenElse{cooperan[n]}{ufc}{recursos[n]+ufc})}}
-\begin{verbatim}
-    donde ufc=unidadFondoComun(recursos, cooperan)
-\end{verbatim}
+\begin{aclaracionesAlgo}{1em}
+    \donde{ufc=unidadFondoComun(recursos, cooperan)}
+\end{aclaracionesAlgo}
 \end{proc}
 \end{document}

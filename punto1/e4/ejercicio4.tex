@@ -12,6 +12,8 @@
     \requiere{\paraTodo[unalinea]{i}{\ent}{(enRango(i, eventos) \yLuego |eventos[i]|>0}}
     \requiere{\paraTodo[unalinea]{i}{\ent}{(enRango(i, |cooperan|) \yLuego (|pagos[i]|=|apuestas[i]|)}}
     \requiere{enRango(individuo, cooperan)}
+    \requiere{\paraTodo[unalinea]{i}{\ent}{enRango(i, cooperan)\yLuego \sum_{k=0}^{|apuestas|-1}apuestas[i][k] = 1}}
+
     \asegura{|cooperan|=|COOPERAN_0|}
     \asegura{\paraTodo[unalinea]{i}{\ent}{i\not=individuo\yLuego cooperan[i]=COOPERAN_0[i]}}
     \asegura{cooperan[individuo]=true \sii \text{\anotacionns[red]{¿y acá?}}}
