@@ -1,0 +1,34 @@
+\documentclass[../../document.tex]{subfiles}
+\usepackage[dvipsnames]{xcolor}
+\begin{document}
+\begin{itemize}
+    \item El invariante debe valor antes, durante y despues del ciclo.
+    \item Para el indice {\color{BlueViolet}$i\in \ent$ debe contemplar 3 estados}
+    \begin{enumerate}
+        \item $i:=0$ \hfill{\color{BlueViolet}$\longleftarrow$ linea 2}
+        \item $i<|eventos|$ \hfill{\color{BlueViolet}$\longleftarrow$ linea 3}
+        \item $i=|eventos|$ \hfill{\color{BlueViolet}$\longleftarrow$ Observacion II}
+    \end{enumerate}
+    Propongo $0\leq i\leq |eventos|$
+    \item Para res tenemos 3 estados
+        \begin{enumerate}
+            \item res=recursos \hfill{\color{BlueViolet}$\longleftarrow$ linea 1}
+            \item cuando eventos[i]=true
+            \begin{enumerate}
+                \item $res:=res*\underset{\alpha}{\underline{(apuesta.c*pago.c)}}$\hfill{\color{BlueViolet}$\longleftarrow$ linea 5}
+                \item $res:=res*\underset{\beta}{\underline{(apuesta.s*pago.s)}}$\hfill{\color{BlueViolet}$\longleftarrow$ linea 7}
+            \end{enumerate}
+            Luego, vemos que ocurren multiples factores de $\alpha$ y $\beta$.
+            \\$res:=res*\alpha^t*\beta^s$ con $t,s\in\{0,1\}$
+            \\notamos que t y s dependen de i tal que 
+            \\$t=1 \iff eventos[i]=true$
+            \\$s=1 \iff eventos[i]=false$
+            \anotacion[NavyBlue]{Nota aleatoria: {\\\color{black} $res:=res*\varphi(i)$}\\
+            {\color{black}$donde\ \varphi :[0,|eventos|]\rightarrow \float / i \rightarrow \begin{cases}\alpha, eventos[i]=true\\\beta, eventos[i]=false\end{cases}$}} 
+            \item Al finalizar el ciclo $res=res*\alpha^t*\beta^s$
+            \\con $t=\#(eventos,T)$ y $s=\#(eventos, F)$
+        \end{enumerate}
+        Por lo anterior, $I=\{(i\in \ent)(0\leq i \leq |eventos| \land res=F(eventos))\}$
+        \\donde $F=resultado*\alpha^{\#(eventos[0...i],T)}*\beta^{\#(eventos[0...i],F)}$
+\end{itemize}
+\end{document}

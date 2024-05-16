@@ -1,0 +1,37 @@
+\documentclass[../../document.tex]{subfiles}
+\usepackage[OT1]{fontenc}
+\usepackage[dvipsnames]{xcolor}
+\begin{document}
+\begin{enumerate}
+    \item res = recursos
+    \item i = 0\\
+    $\{Q_c; res=recursos; i=0\}$
+    \item{\textbf{while} ($i<|eventos|$)\textbf{ do}\\
+    \{$res_0=res;i_0=i;o<i<|eventos|$\}}
+    \item \textbf{if} $eventos[i]$ \textbf{then}\\
+    \{$eventos[i]=true\land res_0=res\land \underset{B }{\underline{0\leq i<|eventos|}}$\}
+    \item $res=res*(apuesta.c*pago.c)\\$
+    $\underset{\alpha}{\underline{\{eventos[i]=true\land res=res_o*(apuesta.c*pago.c)\}}}\cap B$
+    \item \textbf{else}
+    \item $res=res*(apuesta.s*pago.s)\\$
+    $\underset{\beta}{\underline{\{eventos[i]=true\land res=res_0*(apuesta.s*pago.s)\}}\cap B}$
+    \item\textbf{endif}
+    \\$(\alpha \cup \beta)\cap B$
+    \item  i=i+1
+    \\$\alpha \cup \beta \bigl( \{i=i_o+1\cap B\} \bigr) \equiv \alpha \cup B \cap \bigl( \{1\leq i \leq |eventos| \} \bigr)$
+    \item \textbf{endwhile}
+\end{enumerate}
+\paragraph*{Observacion 1}{\hfill\\¿Que significa que {\color{purple}$1\leq i \leq |eventos|$}?}
+\\Que el ciclo podria haber terminado, y ello es correcto.
+\paragraph*{Investicacion de algunas cuestiones}\hfill
+\\¿Cuando $\lnot B$, que pasa?
+\\Primero, la expesion i:=i+1 nos asegura que $\lnot B \implies i=|eventos|$\hfill{\color{BlueViolet}$\longleftarrow$ linea 9}
+\\Pues, el estado previo de i es {\color{purple}\{$0\leq i < |eventos|$\}\hfill{\color{BlueViolet}$\longleftarrow$ linea 8}}
+\\y el posterior es {\color{purple}$\{1\leq i \leq |eventos|\}$}\hfill{\color{BlueViolet}$\longleftarrow$ linea 10}
+\\Luego, dentro del bucle $i\leq |eventos|$, si ademas $\lnot B$, entonces $i>|eventos|$
+\\como $\{i\leq|eventos|\land i>|eventos|\}\equiv \{i=|eventos|\}$
+\\\anotacion[Red]{$\uparrow$ lugar de la "SUTILEZA"}
+vemos que $\lnot B\implies \{i=|eventos|\}$
+\paragraph*{Observacion 2}\hfill\\
+$\lnot B\implies i=|eventos|$
+\end{document}
