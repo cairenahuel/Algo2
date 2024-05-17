@@ -13,9 +13,9 @@
     \asegura{|cooperan|=|COOPERAN_0|}
     \asegura{\paraTodo[unalinea]{i}{\ent}{i\not=individuo\yLuego cooperan[i]=COOPERAN_0[i]}}
     \asegura{\existe[unalinea]{tfc, tfnc}{\TLista{\TLista{\float}}}{|tfc|=|cooperan|\land |tfc[0]|+1=|eventos[0]| \land esRectangular(tfc) \yLuego
-    \\esTrayectoriaValida(tfc, setKey(cooperan,individuo,true),apuestas, pagos, eventos)\yLuego
+    \\esTrayectoriaValida(tfc, setAt(cooperan,individuo,true),apuestas, pagos, eventos)\yLuego
     \\|tfnc|=|cooperan|\land |tfnc[0]|+1=|eventos[0]| \land esRectangular(tfnc) \yLuego
-    \\esTrayectoriaValida(tfnc, setKey(cooperan,individuo,false),apuestas, pagos, eventos)\yLuego
+    \\esTrayectoriaValida(tfnc, setAt(cooperan,individuo,false),apuestas, pagos, eventos)\yLuego
     \\(tfc[individuo][|evento[0]|]\geq tfnc[individuo][|evento[0]|]\sii cooperan[individuo]=true)}}
     \salto{\baselineskip}
     \pred{esTrayectoriaValida}{tr: \TLista{\TLista{\float}},co: \TLista{\bool},ap: \TLista{\TLista{\float}},pa: \TLista{\TLista{\float}},ev: \TLista{\TLista{\ent}}}{\paraTodo[unalinea]{t}{\nat}
