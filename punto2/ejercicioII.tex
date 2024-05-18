@@ -24,7 +24,7 @@ Para demostrar que este código cumple con el requerimiento pedido, se deben com
 
 Para verificar esto, en primer lugar, debemos estudiar el ciclo que se encuentra dentro del código.
 
-$\{Q_c: i = 0 \land_{L} res = recursos\}$
+$\{Q_c: i = 0 \land_{L} res = recursos \land_{L} apuesta_{c}+apuesta_{c}=1 \land_{L} pago_{c},pago_{s},apuesta_{c},apuestsa{s},recurso>0\}$
 \begin{verbatim}
     while (i < |eventos|) do
         if (eventos[i]) then
@@ -41,7 +41,7 @@ donde $\#T = \#(eventos, True)$ y $\#F = \#(eventos, F)$. Proponemos, a partir d
 
 $$I \equiv (\forall i \in \mathbb{Z})(0\leq i \leq |eventos| \land_L res = recursos \cdot (apuestas.c\cdot pagos.c)^{\#T(i)}(apuestas.s\cdot pagos.c)^{\#F(i)}$$
 
-donde $\#T(i) = \#(subseq(eventos,0,i), True)$ y $\#F(i) = \#(subseq(eventos,0,i), F)$
+donde $\#T(i) = \#(eventos[0..i], True)$ y $\#F(i) = \#(eventos[0..i], F)$
 
 Además, nos quedan la siguiente guarda y función variante
 
