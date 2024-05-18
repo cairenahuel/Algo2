@@ -18,7 +18,7 @@ Tenemos el siguiente código, el cual llamaremos $C$
 Para demostrar que este código cumple con el requerimiento pedido, se deben comprobar dos cosas:
 
 \begin{enumerate}
-    \item la poscondición $Q$, de la tripla de Hoar $\{P\}C\{Q\}$, debe implicar el predicado que asegura la especificación.
+    \item la poscondición $Q$, de la tripla de Hoare $\{P\}C\{Q\}$, debe implicar el predicado que asegura la especificación.
     \item el predicado que requiere la especificación debe implicar a la precondición {P}.
 \end{enumerate}
 
@@ -50,7 +50,7 @@ $$f_v = |eventos|-1$$
 
 La poscondición del ciclo, $Q_c$ es el $Q$ que estamos buscando. Por lo tanto, $Q_c$ debe implicar el predicado del asegura. La precondición del ciclo nos permitirá, luego, encontrar la precondición más débil del código, y así ver si pa precondición implica ésta última.
 
-Demostremos que $\{P_c\}S\{Q_c\}$ es una tripla de hoar válida.
+Demostremos que $\{P_c\}S\{Q_c\}$ es una tripla de Hoare válida.
 
 Digamos que \verb+C=C1;C2+, dónde \verb+C1+ es
 \begin{verbatim}
@@ -73,7 +73,7 @@ En principio, \textbf{sí el ciclo finaliza}, para ser válida deben ser ciertos
     \item $\{I \land \neg B\} \to Q_c$
 \end{enumerate}
 
-Veamos que $\{I \land B\}C\{I\}$ sea una tripla de hoar válida. Busco que $\verb+wp(C;I)+ \to \{I \land B\}$.
+Veamos que $\{I \land B\}C\{I\}$ sea una tripla de Hoare válida. Busco que $\verb+wp(C;I)+ \to \{I \land B\}$.
 
 Por axioma, sabemos que \verb+wp(C;I)=wp(C1;wp(C2;I))+. Estudiempos entonces \verb|wp(C2;I)|
 
