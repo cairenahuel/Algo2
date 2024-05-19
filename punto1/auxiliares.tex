@@ -8,6 +8,9 @@
 \pred{todosPositivos}{lista: \TLista{\float}}{
 \paraTodo[unalinea]{i}{\ent}{enRango(i, |lista|)\yLuego lista[i]>0}
 }
+\pred{todosPositivosMatriz}{pagos: \TLista{\TLista{\float}}}{
+    \paraTodo[unalinea]{individuo}{\ent}{enRango(individuo, |pagos|)\yLuego todosPositivos(pagos[individuo])}
+}
 \pred{esRectangular}{matriz: \TLista{\TLista{T}}}{\paraTodo[unalinea]{i}{\ent}{enRango(i, |matriz|-1) \yLuego |matriz[i]|=|matriz[i+1]|}}
 \pred{esApuestaValida}{\In apuesta: \TLista{\float}}{
 	\paraTodo[unalinea]{i}{\nat}{enRango(i, |apuesta|) \yLuego apuesta[i] \geq 0} \yLuego
@@ -24,4 +27,8 @@
         \\\bigl(trayectoria[individuo][tiempo]*apuestas[individuo]\bigl[eventos[individuo][tiempo]\bigr]
         \\ *pagos[individuo]\bigl[eventos[individuo][tiempo]\bigr]\bigr)}}}
     }
+    \pred{todosLosEventosSonValidos}{apuestas : \TLista{\TLista{\float}}, eventos : \TLista{\TLista{\nat}}}{\paraTodo[unalinea]{\ individuo}{\ent}{enRango(individuo, |cooperan|)\yLuego
+    \\\paraTodo[unalinea]{\ tiempo}{\ent}{enRango(tiempo, |eventos[0]|)\yLuego
+    \\\existe[unalinea]{\ eventoPosible}{\nat}{enRango(eventoPosible, |pagos[0]|) \yLuego
+    \\eventos[individuo][tiempo]=eventoPosible}}}}
 \end{document}
