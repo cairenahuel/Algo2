@@ -12,22 +12,22 @@ Sea $S=S1;S2$, dónde $S1= res:=recursos$ y $S2= i:=0$, queremos ver que $wp(S,P
 Sabemos que $wp(S,Pc)=wp(S1,wp(S2,Pc))$
 
 Estudiemos $wp(S2,Pc)$
-\begin{align}
+\begin{align*}
    wp(S2,Pc) &\equiv wp(i:=0;Pc)\\
     & \equiv Pc_{0}^{i} \\
     & \equiv0 = 0 \land_{L} res = recursos \land_{L} apuesta_{c}+apuesta_{c}=1 \land_{L} pago_{c},pago_{s},apuesta_{c},apuestsa{s},recurso>0\\
     & \equiv True \land_{L} res = recursos \land_{L} apuesta_{c}+apuesta_{c}=1 \land_{L} pago_{c},pago_{s},apuesta_{c},apuestsa{s},recurso>0\\
     & \equiv res = recursos \land_{L} apuesta_{c}+apuesta_{c}=1 \land_{L} pago_{c},pago_{s},apuesta_{c},apuestsa{s},recurso>0
-\end{align}
+\end{align*}
 
 Estudiemos $wp(S1,wp(S2,Pc))$. Llamaremos a $Pf=wp(S2;Pc)$
-\begin{align}
+\begin{align*}
    wp(S1,Pf) &\equiv wp(res=recursos;Pf)\\
     & \equiv Pf_{recursos}^{res} \\
     & \equiv recursos = recursos \land_{L} apuesta_{c}+apuesta_{c}=1 \land_{L} pago_{c},pago_{s},apuesta_{c},apuestsa{s},recurso>0\\
     & \equiv True \land_{L} apuesta_{c}+apuesta_{c}=1 \land_{L} pago_{c},pago_{s},apuesta_{c},apuestsa{s},recurso>0\\
     & \equiv apuesta_{c}+apuesta_{c}=1 \land_{L} pago_{c},pago_{s},apuesta_{c},apuestsa{s},recurso>0
-\end{align}
+\end{align*}
 
 Efectivamente, $wp(S,Pc) \implies {P}$. Por lo tanto, es una implementación válida de nuestra especificación.
 

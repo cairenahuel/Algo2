@@ -1,21 +1,25 @@
 \documentclass[../document.tex]{subfiles}
 \begin{document}
 \subsection*{Predicado 2}
-Queremos ver que $\{I \land B\}C\{I\}$ sea una tripla de Hoare válida. Busco que $\verb+wp(C;I)+ \to \{I \land B\}$.
+Queremos ver que $\{I \land B\}C\{I\}$ sea una tripla de Hoare válida. Busco que $\verb+wp(C,I)+ \to \{I \land B\}$.
 
+<<<<<<< HEAD
 Por axioma, sabemos que \verb+wp(C;I)=wp(C1;wp(C2;I))+. Estudiamos entonces \verb|wp(C2;I)|
+=======
+Por axioma, sabemos que \verb+wp(C,I)=wp(C1,wp(C2,I))+. Estudiempos entonces \verb|wp(C2,I)|
+>>>>>>> 4d8548601bfb3a07510d9a9e0f896850fe625faa
 
 \begin{equation} \label{eq1}
 \begin{split}
-wp(C2;I) & \equiv wp(i := i+1;I) \\
+wp(C2;I) & \equiv wp(i := i+1,I) \\
          & \equiv I^{i}_{i+1} \\
          & \equiv 0\leq i+1 \leq |eventos| \land_L\\ 
          &recursos \cdot (apuestas.c\cdot pagos.c)^{\#T(i+1)}(apuestas.s\cdot pagos.c)^{\#F(i+1)}
 \end{split}
 \end{equation}
-Llamaremos \verb|P2=wp(C2;I)|
+Llamaremos \verb|P2=wp(C2,I)|
 
-Ahora, debemos ver que pasa con \verb+wp(C;I)=wp(C1;P2)+, donde $P2$ fue calculado en \ref{eq1}
+Ahora, debemos ver que pasa con \verb+wp(C,I)=wp(C1,P2)+, donde $P2$ fue calculado en \ref{eq1}
 
 \begin{equation} \label{eq2}
 \begin{split}
@@ -34,11 +38,11 @@ Donde
 Empecemos viendo que pasa cuando sale cara.
 \begin{equation} \label{eq2.a}
 \begin{split}
-wp(C1A;P2) & wp(res := res * apuesta.c * pago.c; P2) \\
+wp(C1A,P2) & wp(res := res * apuesta.c * pago.c; P2) \\
            & \equiv 0\leq i<|eventos| \land_{L} P2^{res}_{res * apuesta.c * pago.c} \\
 \end{split}
 \end{equation}
-Diremos que $P1A = wp(C1A;P2) = P2^{res}_{res * apuesta.c * pago.c}$
+Diremos que $P1A = wp(C1A,P2) = P2^{res}_{res * apuesta.c * pago.c}$
 
 \begin{equation} \label{eq2.a}
 \begin{split}
@@ -60,12 +64,12 @@ Luego, nos queda que
 Veamos ahora que pasa cuando sale seca.
 \begin{equation} \label{eq2.a}
 \begin{split}
-wp(C1B;P2) & \equiv wp(res := res * apuesta.s * pago.s; P2) \\
+wp(C1B;P2) & \equiv wp(res := res * apuesta.s * pago.s, P2) \\
            & \equiv P2^{res}_{res * apuesta.s * pago.s} \\
 \end{split}
 \end{equation}
 
-Diremos que $P1B = wp(C1B;P2) = P2^{res}_{res * apuesta.s * pago.s}$
+Diremos que $P1B = wp(C1B,P2) = P2^{res}_{res * apuesta.s * pago.s}$
 
 \begin{equation} \label{eq2.b}
 \begin{split}
@@ -91,8 +95,8 @@ Finalmente, podemos sitetizar todo lo anterior en
 
 \begin{equation} \label{final}
 \begin{split}
-    wp(C1;P2) &\equiv (B \land wp(C1A, P2) \lor (\neg B \land wp(C1B, P2))\\
-    wp(C1;P2) &\equiv ((B \land P1A) \lor (\neg B \land P1B))\\
+    wp(C1,P2) &\equiv (B \land wp(C1A, P2) \lor (\neg B \land wp(C1B, P2))\\
+    wp(C1,P2) &\equiv ((B \land P1A) \lor (\neg B \land P1B))\\
 \end{split}
 \end{equation}
 
@@ -100,16 +104,16 @@ Finalmente, podemos sitetizar todo lo anterior en
 
 Además, tenemos $P1A \lor P1B$, que son dos elementos iguales. Cuando sale seca, y cuando sale cara, ocurre lo mismo. 
 
-\begin{align}
+\begin{align*}
     P1A \lor P1B &\equiv
     (0\leq i < |eventos|)\land_{L}
     res = recursos \cdot (apuestas.c\cdot pagos.c)^{\#T(i)}(apuestas.s\cdot pagos.c)^{\#F(i)}\\
     P1A \lor P1B &\equiv I \land B
-\end{align}
+\end{align*}
 
 Luego, esto es el valor de $\verb+wp(C1,P2)+$, que es igual a $\verb+wp(C,I)+$
 
-Vimos que $\verb+wp(C;I)+ \to \{I \land B\}$, que es lo que queríamos probar.
+Vimos que $\verb+wp(C,I)+ \to \{I \land B\}$, que es lo que queríamos probar.
 
 
 
