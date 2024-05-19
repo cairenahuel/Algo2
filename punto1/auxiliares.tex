@@ -1,49 +1,27 @@
-\documentclass[document.tex]{subfiles}
+\documentclass[../document.tex]{subfiles}
 \begin{document}
-% unidadFondoCommun original
 \aux{unidadFondoComun}{recursos: \TLista{\float}, cooperan: \TLista{\bool}}{\float}{\\(\sum_{i=0}^{|recursos|-1} \IfThenElse{cooperan[i]}{recursos[i]}{0})/|recursos|}
-\anotacion{SE USA $\uparrow$}\hfill\\
-\aux{ufcPaso}{t: \ent, tr: \TLista{\TLista{\float}}, co: \TLista{\bool}, ap : \TLista{\TLista{\float}}, pa : \TLista{\TLista{\float}}, ev : \TLista{\TLista{\nat}}}{\float}{
-	\\\frac{\sum_{i=0}^{|co|-1}(\IfThenElse{co[i]}{tr[i][t]*ap[i][ev[i][t]]*pa[i][ev[i][t]]}{0})}{|co|}
+\aux{ufcPaso}{tiempo: \ent, trayectoria: \TLista{\TLista{\float}}, cooperan: \TLista{\bool}, apuestas : \TLista{\TLista{\float}}, pagos : \TLista{\TLista{\float}}, eventos : \TLista{\TLista{\nat}}}{\float}{
+	{\sum_{i=0}^{|cooperan|-1}(\IfThenElse{cooperan[i]}{trayectoria[i][t]*apuestas[i][ev[i][t]]*pagos[i][ev[i][t]]}{0})}/{|cooperan|}
 }
-\anotacion{SE USA $\uparrow$}\hfill\\
-\pred{enRango}{i: \ent, lista: \TLista{\nat}}{0\leq i<|lista|}
-\anotacion{SE USA $\uparrow$}\hfill\\
+\pred{enRango}{i: \ent, tope: \nat}{0\leq i<tope}
 \pred{todosPositivos}{lista: \TLista{\float}}{
-\paraTodo[unalinea]{i}{\ent}{enRango(i, lista)\yLuego lista[i]>0}
+\paraTodo[unalinea]{i}{\ent}{enRango(i, |lista|)\yLuego lista[i]>0}
 }
-\pred{esRectangular}{matriz: \TLista{\TLista{T}}}{\paraTodo[unalinea]{i}{\ent}{enRango(i,tail(matriz))\yLuego |matriz[i]|=|matriz[i+1]|}}
-\anotacion{SE USA $\uparrow$}\hfill\\
-\aux{cuantoGanaron}{recursosPaso: \TLista{\float}, apuestas: \TLista{\TLista{\float}}, pagos: \TLista{\TLista{\float}}, eventosPaso:  \TLista{\nat}}{\TLista{\float}}{
-\\\hspace*{2em}\sum_{i=0}^{|recursosPaso|-1}{\langle recursosPaso[i]\cdot apuestas[i][eventosPaso[i]] \cdot  pagos[i][eventosPaso[i]] \rangle}
+\pred{esRectangular}{matriz: \TLista{\TLista{T}}}{\paraTodo[unalinea]{i}{\ent}{enRango(i, |matriz|-1) \yLuego |matriz[i]|=|matriz[i+1]|}}
+\pred{esApuestaValida}{\In apuesta: \TLista{\float}}{
+	\paraTodo[unalinea]{i}{\nat}{enRango(i, |apuesta|) \yLuego apuesta[i] \geq 0} \yLuego
+	\bigl((\sum_{i=0}^{|apuesta|-1}{apuesta[i]}) = 1\bigr)
 }
-\hfill\\
-%en eventosPaso tengo que poner eventos T [p]
-%en recursosPaso tengo que poner trayectorias T [p] en ese paso de tiempo
-%	\aux{gananciaEnP}{p: \ent, recursosPaso : \TLista{\float}, apuestas : \TLista{\TLista{\float}}, pagos : \TLista{\TLista{\float}}, eventosPaso :  \TLista{\nat}}{\float}{
-%	\\\hspace*{2em}cuantoGanaron(recursosPaso, apuestas, pagos, eventosPaso)[p]
-%	}
-% saco gananciaEnP por redundancia 
-% usamos cuantoGanaron[ind]
-\aux{ufcPaso}{coop: \TLista{\bool}, recPaso: \TLista{\float}, apuestas: \TLista{\TLista{\float}}, pagos: \TLista{\TLista{\float}},evtPaso :  \TLista{\nat} }{\float}{
-%\\\hspace*{2em}cuantoGanaron(recPaso, apuestas, pagos, evtPaso)[p]/|coop|
-\\\hspace*{2em}unidadFondoComun(cuantoGanaron(recPaso, apuestas, pagos, evtPaso), coop)
-}
-\hfill\\
-\pred{esApuestaValida}{\In apuesta \TLista{\float}}{
-	(\paraTodo[unalinea]{i}{\nat}{enRango(i, apuesta) \yLuego apuesta[i] \geq 0}) \yLuego (\sum_{i=0}^{|apuesta|-1}{apuesta[i]} = 1)
-}
-\hfill\\
-\aux{distribucionPaso}{cosas}{\TLista{\float}}{\\\sum_{i=0}^{|coop|-1}{\langle  \IfThenElse{coop[i]}{ufcPaso(cosas)}{cuantoGanaron(cosas)[i]+ufcPaso(cosas)}\rangle}}
-\hfill\\
-\aux{trayectoriaFinal}{cosas}{\TLista{\TLista{\float}}}{\sum_{i=0}^{|eventos|-1}\langle distribucionPaso(cosas)\rangle}
-\hfill\\
-\aux{distribucionPaso}{in p, in coop: \TLista{\bool},in recPaso: \TLista{\float},in apuestas: \TLista{\TLista{\float}},in pagos: \TLista{\TLista{\float}},in evtPaso :  \TLista{\nat}}{\TLista{\float}}{\sum_{i=0}^{|coop|-1} \langle \IfThenElse{coop[i]\\\hspace*{2em}}{ufcPaso(coop, recPaso, apuestas, pagos, evtPaso)\\\hspace*{2em}}{cuantoGanaron(recPaso, apuestas, pagos, evtPaso)[i]+ufcPaso(coop, recPaso, apuestas, pagos, evtPaso)} \rangle}
-\hfill\\
-\aux{trayectoriaFinal}{in coop: \TLista{\bool},in recPasos: \TLista{\float},in apuestas: \TLista{\TLista{\float}},\\in pagos: \TLista{\TLista{\float}},in evtPaso :  \TLista{\nat}}{\TLista{\TLista{\float}}}{\\\hspace*{2em}\sum_{p=0}^{|eventos|-1}\langle distribucionPaso(p, coop, recPasos, apuestas, pagos, evtPaso)\rangle}
-\hfill\\
-\aux{cuantoGanoAlFinal}{\In trayectorias: \TLista{\TLista{\float}}, \In individuo: \nat}{\float}{
-	\\\hspace*{2em}(trayectorias[i][|trayectorias[0]|-1) - trayectorias[i][0]]
-}
-\pred{esLaTranspuesta}{candidata: \TLista{\TLista{T}}, original: \TLista{\TLista{T}}}{\paraTodo[unalinea]{}{}{}}
+\pred{esTrayectoriaValida}{trayectoria: \TLista{\TLista{\float}},cooperan: \TLista{\bool},apuestas: \TLista{\TLista{\float}},pagos: \TLista{\TLista{\float}},\\eventos: \TLista{\TLista{\ent}}}
+    {|trayectoria|=|cooperan| \yLuego |trayectoria[0]|+1=|eventos[0]|\yLuego esRectangular(trayectoria)\yLuego
+    \\\paraTodo[unalinea]{i}{\ent}{enRango(i, |cooperan|)\yLuego trayectoria[i][0]=recursos[i]} \yLuego
+    \\\paraTodo[unalinea]{\ tiempo}{\nat}
+    {enRango(tiempo, |eventos[0]|)\yLuego
+    \paraTodo[unalinea]{\ individuo}{\ent}{enRango(individuo, |eventos|)\yLuego \\trayectoria[individuo][tiempo+1]=
+    ufcPaso(tiempo,trayectoria,cooperan,apuestas,pagos,eventos)+
+    \\\IfThenElse{cooperan[individuo]}{0}{
+        \\\bigl(trayectoria[individuo][tiempo]*apuestas[individuo]\bigl[eventos[individuo][tiempo]\bigr]
+        \\ *pagos[individuo]\bigl[eventos[individuo][tiempo]\bigr]\bigr)}}}
+    }
 \end{document}

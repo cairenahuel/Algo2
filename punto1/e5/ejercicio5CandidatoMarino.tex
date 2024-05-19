@@ -1,0 +1,49 @@
+\documentclass[../../document.tex]{subfiles}
+\usepackage{amssymb}
+\begin{document}
+\begin{proc}{individuoActualizaApuesta}{\In individuo: \nat, \In recursos: \TLista{\float}, \In cooperan: \TLista{\bool}, \Inout apuestas : \TLista{\TLista{\float}}, \In pagos : \TLista{\TLista{\float}}, \In eventos : \TLista{\TLista{\nat}}}{}
+    \requiere{apuestas=APUESTAS_0}
+    \requiere{todosPositivos(recursos)}
+    \requiere{|recursos|=|cooperan|=|eventos|=|pagos|=|apuestas|}
+    \requiere{esRectangular(eventos)\yLuego esRectangular(pagos)\yLuego esRectangular(apuestas)}
+    \requiere{\paraTodo[unalinea]{i}{\ent}{enRango(i, eventos) \yLuego |eventos[i]|>0}}
+    \requiere{\paraTodo[unalinea]{i}{\ent}{enRango(i, cooperan) \yLuego (|pagos[i]|=|apuestas[i]|)}}
+    \requiere{enRango(individuo, cooperan)}
+    \anotacion{\requiere{\paraTodo[unalinea]{i}{\ent}{enRango(i, cooperan)\yLuego \sum_{k=0}^{|apuestas|-1}apuestas[i][k] = 1}}}
+    \requiere{\paraTodo[unalinea]{i}{\ent}{enRango(i, cooperan)\yLuego esApuestaValida(apuestas[i])}}
+
+    \asegura{|apuestas|=|APUESTAS_0|}
+    \asegura{\paraTodo[unalinea]{i}{\ent}{enRango(i,cooperan)\yLuego i\not=individuo\yLuego apuestas[i]=APUESTAS_0[i]}}
+    \hspace{2em}
+    \anotacion{aca empieza el asegura verdadero}
+    \asegura{\existe[unalinea]{mejorApuesta}{\TLista{\float}}{
+    esApuestaValida(mejorApuesta) \yLuego
+    \\apuestas[individuo] = mejorApuesta \sii
+    \\\existe[unalinea]{mejorTr}{\TLista{\TLista{\float}}}{
+    \\esTrayectoriaValida(mejorTr, cooperan, setAt(apuestas,individuo,mejorApuesta), pagos, eventos) \yLuego
+    \\\paraTodo[unalinea]{apuestaRandom}{\TLista{\float}}{
+    esApuestaValida(apuestaRandom) \yLuego
+    \\\existe[unalinea]{otraTr}{\TLista{\TLista{\float}}}{
+    \\esTrayectoriaValida(otraTr, cooperan, setAt(apuestas,individuo,apuestaRandom), pagos, eventos) \yLuego
+    \\mejorTr[individuo][|eventos[0]|] \geq otraTr[individuo][|eventos[0]|]}}}}}
+    \pred{esTrayectoriaValida}{tray: \TLista{\TLista{\float}}, rec: \TLista{\float}, co: \TLista{\bool},ap: \TLista{\TLista{\float}},pa: \TLista{\TLista{\float}},ev: \TLista{\TLista{\ent}}}
+    {
+    |tray| = |co| \land |tray[0]|=|ev[0]|+1 \yLuego esRectangular(tray) \yLuego \\\paraTodo[unalinea]{i}{\ent}{enRango(i,|cooperan|)\yLuego tfIdeal[i][0]=recursos[i]}
+    \\\paraTodo[unalinea]{tpo}{\ent}
+    {enRango(tpo, eventos[1])\yLuego
+    \paraTodo[unalinea]{i}{\ent}{enRango(i, eventos)\yLuego \\tr[i][tpo+1]=ufcPaso(tpo,tr,co,ap,pa,ev)+\IfThenElse{co[i]}{0}{tr[i][tpo]*ap[i][ev[i][tpo]]*pa[i][ev[i][tpo]]}}}
+    }
+    \salto{\baselineskip}
+    \asegura{\existe[unalinea]{tfc, tfnc}{\TLista{\TLista{\float}}}{|tfc|=|cooperan|\land |tfc[0]|+1=|eventos[0]| \land esRectangular(tfc) \yLuego
+    \\\paraTodo[unalinea]{j}{\ent}{enRango(j,|cooperan|)\yLuego tfc[j][0]=recursos[j]} \yLuego
+    \\esTrayectoriaValida(tfc, setAt(cooperan,individuo,true),apuestas, pagos, eventos)\yLuego
+    \\|tfnc|=|cooperan|\land |tfnc[0]|+1=|eventos[0]| \land esRectangular(tfnc) \yLuego
+    \\\paraTodo[unalinea]{k}{\ent}{enRango(k,|cooperan|)\yLuego tfnc[k][0]=recursos[k]} \yLuego
+    \\esTrayectoriaValida(tfnc, setAt(cooperan,individuo,false),apuestas, pagos, eventos)\yLuego
+    \\(tfc[individuo][|evento[0]|]\geq tfnc[individuo][|evento[0]|]\sii cooperan[individuo]=true)\yLuego
+    \\(tfc[individuo][|evento[0]|]< tfnc[individuo][|evento[0]|]\sii cooperan[individuo]=false)}}
+
+    \begin{adjustwidth}{1em}{}
+    \end{adjustwidth}
+\end{proc}
+\end{document}
