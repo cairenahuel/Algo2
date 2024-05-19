@@ -5,10 +5,10 @@
     \requiere{todosPositivos(recursos)}
     \requiere{|recursos|=|cooperan|=|eventos|=|pagos|=|apuestas|}
     \requiere{esRectangular(eventos)\yLuego esRectangular(pagos)\yLuego esRectangular(apuestas)}
-    \requiere{\paraTodo[unalinea]{i}{\ent}{enRango(i, eventos) \yLuego |eventos[i]|>0}}
-    \requiere{\paraTodo[unalinea]{i}{\ent}{enRango(i, cooperan) \yLuego (|pagos[i]|=|apuestas[i]|)}}
-    \requiere{enRango(individuo, cooperan)}
-    \requiere{\paraTodo[unalinea]{i}{\ent}{enRango(i, cooperan)\yLuego esApuestaValida(apuestas[i])}}
+    \requiere{\paraTodo[unalinea]{i}{\ent}{enRango(i, |eventos|) \yLuego |eventos[i]|>0}}
+    \requiere{\paraTodo[unalinea]{i}{\ent}{enRango(i, |cooperan|) \yLuego (|pagos[i]|=|apuestas[i]|)}}
+    \requiere{enRango(individuo, |cooperan|)}
+    \requiere{\paraTodo[unalinea]{i}{\ent}{enRango(i, |cooperan|)\yLuego esApuestaValida(apuestas[i])}}
     \requiere{todosLosEventosSonValidos(eventos, apuestas)}
     \requiere{todosPositivosMatriz(pagos)}
 

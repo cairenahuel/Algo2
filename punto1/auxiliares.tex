@@ -1,9 +1,9 @@
 \documentclass[../document.tex]{subfiles}
 \begin{document}
-\aux{unidadFondoComun}{recursos: \TLista{\float}, cooperan: \TLista{\bool}}{\float}{\\(\sum_{i=0}^{|recursos|-1} \IfThenElse{cooperan[i]}{recursos[i]}{0})/|recursos|}
-\aux{ufcPaso}{tiempo: \ent, trayectoria: \TLista{\TLista{\float}}, cooperan: \TLista{\bool}, apuestas : \TLista{\TLista{\float}}, pagos : \TLista{\TLista{\float}}, eventos : \TLista{\TLista{\nat}}}{\float}{
-	{\sum_{i=0}^{|cooperan|-1}(\IfThenElse{cooperan[i]}{trayectoria[i][t]*apuestas[i][ev[i][t]]*pagos[i][ev[i][t]]}{0})}/{|cooperan|}
+\aux{ufcPaso}{t: \ent, trayectoria: \TLista{\TLista{\float}}, cooperan: \TLista{\bool}, apuestas : \TLista{\TLista{\float}}, pagos : \TLista{\TLista{\float}}, eventos : \TLista{\TLista{\nat}}}{\float}{
+	\\{\bigl(\sum_{i=0}^{|cooperan|-1}(\IfThenElse{cooperan[i]}{trayectoria[i][t]*apuestas[i][eventos[i][t]]*pagos[i][eventos[i][t]]}{0})\bigr)}/{|cooperan|}
 }
+\salto{\baselineskip}
 \pred{enRango}{i: \ent, tope: \nat}{0\leq i<tope}
 \pred{todosPositivos}{lista: \TLista{\float}}{
 \paraTodo[unalinea]{i}{\ent}{enRango(i, |lista|)\yLuego lista[i]>0}

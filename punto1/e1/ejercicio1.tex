@@ -3,12 +3,12 @@
 \begin{proc}{redistribucionDeLosFrutos}{\In recursos : \TLista{\float}, \In cooperan: \TLista{\bool}}{\TLista{\float}}
 \requiere{|recursos|=|cooperan|}
 \requiere{|recursos|>0}
-\requiere{\paraTodo[unalinea]{n}{\ent}{todosPositivos(n,recursos)}}
-\requiere{\paraTodo[unalinea]{i}{\ent}{enRango(i, cooperan)\yLuego \sum_{k=0}^{|apuestas|-1}apuestas[i][k] = 1}}
+\requiere{todosPositivos(recursos)}
 \asegura{|res|=|recursos|}
-\asegura{\paraTodo[unalinea]{n}{\ent}{enRango(n, res) \implicaLuego res[n]=(\IfThenElse{cooperan[n]}{ufc}{recursos[n]+ufc})}}
-\begin{aclaracionesAlgo}{1em}
-    \donde{ufc=unidadFondoComun(recursos, cooperan)}
-\end{aclaracionesAlgo}
+\asegura{\paraTodo[unalinea]{\ individuo}{\ent}{enRango(individuo, |cooperan|) \implicaLuego res[individuo]=
+\\\bigl(unidadFondoComun(recursos, cooperan)+\IfThenElse{cooperan[individuo]}{0}{recursos[n]}\bigr)}}
+\salto{\baselineskip}
+\aux{unidadFondoComun}{recursos: \TLista{\float}, cooperan: \TLista{\bool}}{\float}{
+    \\(\sum_{i=0}^{|recursos|-1} \IfThenElse{cooperan[i]}{recursos[i]}{0})/|recursos|}
 \end{proc}
 \end{document}

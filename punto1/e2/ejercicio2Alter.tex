@@ -6,20 +6,20 @@
     \requiere{\paraTodo[unalinea]{i}{\ent}{enRango(i,|trayectorias|)\yLuego |trayectorias[i]|=1\land trayectorias[i]>0}}
     \requiere{\paraTodo[unalinea]{i}{\ent}{(enRango(i, |eventos|) \yLuego |eventos[i]|>0}}
     \requiere{\paraTodo[unalinea]{i}{\ent}{(enRango(i, |cooperan|) \yLuego (|pagos[i]|=|apuestas[i]| )}}
-    \requiere{\paraTodo[unalinea]{i}{\ent}{enRango(i, |cooperan|)\yLuego \sum_{k=0}^{|apuestas|-1}apuestas[i][k] = 1}}
+    \requiere{\paraTodo[unalinea]{i}{\ent}{enRango(i, |cooperan|)\yLuego esApuestaValida(apuestas[i])}}
     \requiere{esRectangular(eventos)\yLuego esRectangular(pagos)\yLuego esRectangular(apuestas)}
     \requiere{todosLosEventosSonValidos(eventos, apuestas)}
     \requiere{todosPositivosMatriz(pagos)}
+    \salto{\baselineskip}
     \asegura{|TRAYECTORIAS_0|=|trayectorias|}
     \asegura{\paraTodo[unalinea]{i}{\ent}{enRango(i,TRAYECTORIAS_0)\yLuego trayectorias[i][0]=TRAYECTORIAS_0[i][0]}}
     \asegura{\paraTodo[unalinea]{i}{\ent}{enRango(i,TRAYECTORIAS_0)\yLuego |trayectorias[i]|=|eventos[i]|+1}}
-    \salto{\baselineskip}
     \asegura{\paraTodo[unalinea]{individuo}{\ent}{enRango(individuo,|trayectorias|)\yLuego \paraTodo[unalinea]{tiempo}{\ent}{enRango(tiempo, |eventos[0]|)\yLuego\\
     trayectorias[individuo][tiempo+1]=ufcPaso(tiempo,trayectorias,cooperan,apuestas,pagos,eventos)+
     \\\IfThenElse{cooperan[i]}
     {0}
-    {\\trayectorias[individuo][tiempo]*apuestas[individuo][eventos[individuo][tiempo]]
-    \\ *pagos[individuo][eventos[individuo][tiempo]]
+    {\\trayectorias[individuo][tiempo]*apuestas[individuo]\bigl[eventos[individuo][tiempo]\bigr]
+    \\ *pagos[individuo]\bigl[eventos[individuo][tiempo]\bigr]
     }}}}
     \end{proc}
 \end{document}

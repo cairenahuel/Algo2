@@ -1,25 +1,25 @@
 \documentclass[../../document.tex]{subfiles}
 \begin{document}
-\begin{proc}{trayectoriaExtrañaEscalera}{\In trayectoria:\TLista{\float}}{\bool}
+\begin{proc}{trayectoriaExtrañaEscalera}{\In trayectoria: \TLista{\float}}{\bool}
 \requiere{|trayectoria|>0\land todosPositivos(trayectoria)}
 \asegura{
 res=\True \iff 
-\existe[unalinea]{n}{\ent}{esMaximoLocal(trayectoria,n) \land
-\\\hspace*{12em}\paraTodo[unalinea]{m}{\ent}{m\not=n\land \lnot esMaximoLocal(trayectoria,m)}}
+\existe[unalinea]{\ n}{\ent}{esMaximoLocal(trayectoria,n) \land
+\\\hspace*{12em}\paraTodo[unalinea]{\ m}{\ent}{m\not=n\land \lnot esMaximoLocal(trayectoria,m)}}
 }
-
-\pred{existeAnterior}{\In s:\TLista{\float}, \In n:\nat}
+\salto{\baselineskip}
+\pred{existeAnterior}{secuencia: \TLista{\float}, n: \nat}
 {
-enRango(n,s) \yLuego enRango(n-1,s)
+enRango(n,|secuencia|) \yLuego enRango(n-1,|secuencia|)
 }
-\pred{existePosterior}{\In s:\TLista{\float}, \In n:\nat}
+\pred{existePosterior}{secuencia: \TLista{\float}, n: \nat}
 {
-enRango(n,s) \yLuego  enRango(n+1,s)
+enRango(n,|secuencia|) \yLuego  enRango(n+1,|secuencia|)
 }
-\pred{esMaximoLocal}{\In s:\TLista{\float}, \In n:\nat}{
-    (existeAnterior(s,n) \implies s[n-1] < s[n])
+\pred{esMaximoLocal}{secuencia: \TLista{\float}, n: \nat}{
+    (existeAnterior(secuencia,n) \implies secuencia[n-1] < secuencia[n])
     \yLuego
-    (existePosterior(s,n) \implies s[n+1] < s[n])
+    \\(existePosterior(secuencia,n) \implies secuencia[n+1] < secuencia[n])
 }
 %\textbf{\\
 %\\
