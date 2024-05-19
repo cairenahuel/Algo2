@@ -3,5 +3,34 @@
 
 \subsection*{Axioma 4}
 
-
+Queremos ver que $\{i\land B\land fv=v_0\}S\{fv<v_0\}$ sea una tripla de Hoare valida, por lo que calcularemos: $wp(S, fv<v_0)$,
+\\ donde $S=\{S_1;S_0$\}, $S_1$ correspondiendo a la intruccion if, y $S_0$ siendo equivalente a $i:=i+1$.
+\salto{\baselineskip}
+Consideraciones: $|eventos|-i<v_0 \equiv Q$
+\begin{align*}
+    wp(S_0, fv<v_0)&\equiv wp(i:=i+1, Q)
+    \\&\equiv def(i+1)\yLuego Q_{i+1}^i
+    \\&\equiv True\yLuego |eventos|-(i+1)<v_0
+    \\&\equiv |eventos|-i-1<|eventos|-i
+    \\&\equiv True
+\end{align*}
+Ahora sabiendo que $wp(S_0, fv<v_0) \equiv True$, vamos a calcular $wp(S_1, True)$
+\begin{align*}
+    wp(\IfThenElse{B}{S_{1T}}{S_{1F}}, True)&\equiv def(B) \yLuego ((B\land wp(S_{1T},True))\lor (\lnot B \land wp(S_{1F},True)))
+    \\&\equiv def(i) \land  0\leq i < |eventos| \yLuego ((B\land True)\lor (\lnot B \land True))
+    \\&\equiv 0\leq i < |eventos| \yLuego (B\lor \lnot B)
+    \\&\equiv 0\leq i < |eventos| \yLuego True
+    \\&\equiv 0\leq i < |eventos|
+\end{align*}
+\salto{\baselineskip}
+Ahora, ¿$i\land B \land fv=v_0\implies 0\leq i < |eventos|$? (Aclaracion, este B es el de la guarda del while, osea $B\equiv i<|eventos|$)
+\begin{align*}
+    i\land B \land fv=v_0 &\equiv 0 \leq i\leq |eventos| \land i<|eventos| \land |eventos|-i=v_0
+    \\&\equiv 0 \leq i<|eventos| \land |eventos|-i=v_0
+\end{align*}
+Entonces
+\begin{align*}
+    0 \leq i<|eventos| \land |eventos|-i=v_0\implies 0 \leq i<|eventos|
+\end{align*}
+Que es lo que queriamos demostrar.
 \end{document}
