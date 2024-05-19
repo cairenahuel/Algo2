@@ -1,6 +1,19 @@
 \documentclass[../document.tex]{subfiles}
+\usepackage[dvipsnames]{xcolor}
 \begin{document}
 
 \subsection*{Axioma 5}
-
+\noindent Queremos demostrar que:\hspace{3em}$i\land fv\leq 0 \implies \lnot B$
+\\Por hipotesis $I\land fv\leq 0$ sabemos que es valido lo siguiente:
+\begin{enumerate}
+    \item $0\leq i \leq |eventos|$
+    \item $res=recursos\cdot(apuestas_c\cdot pagos_c)^{\#T(i)}\cdot(apuestas_s\cdot pagos_s)^{\#F(i)}$
+    \item $|eventos|-i\leq 0 \equiv i \geq |eventos|$\hfill{\color{BlueViolet}$\longleftarrow$ Recordatorio: $fv=|eventos|-i$}
+\end{enumerate}
+\salto{\baselineskip}
+Por (1) y (3) sabemos que $i=|eventos|$. Luego, como $i\not<|eventos|$, 
+\\podemos decir que $i=|eventos|\implies \lnot(i<|eventos|)$, lo cual es equivalente a
+$i=|eventos|\implies \lnot B$
+\salto{\baselineskip}
+Entonces queda demostrado que $I\land fv\leq 0 \implies \lnot B$
 \end{document}
