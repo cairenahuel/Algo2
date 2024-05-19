@@ -1,0 +1,120 @@
+\documentclass[../document.tex]{subfiles}
+\begin{document}
+\subsection*{Axioma 2}
+Queremos ver que $\{I \land B\}C\{I\}$ sea una tripla de Hoare válida. Busco que $\verb+wp(C;I)+ \to \{I \land B\}$.
+
+Por axioma, sabemos que \verb+wp(C;I)=wp(C1;wp(C2;I))+. Estudiempos entonces \verb|wp(C2;I)|
+
+\begin{equation} \label{eq1}
+\begin{split}
+wp(C2;I) & \equiv wp(i := i+1;I) \\
+         & \equiv I^{i}_{i+1} \\
+         & \equiv 0\leq i+1 \leq |eventos| \land_L\\ 
+         &recursos \cdot (apuestas.c\cdot pagos.c)^{\#T(i+1)}(apuestas.s\cdot pagos.c)^{\#F(i+1)}
+\end{split}
+\end{equation}
+Llamaremos \verb|P2=wp(C2;I)|
+
+Ahora, debemos ver que pasa con \verb+wp(C;I)=wp(C1;P2)+, donde $P2$ fue calculado en \ref{eq1}
+
+\begin{equation} \label{eq2}
+\begin{split}
+wp(C1;P2) & \equiv wp(\text{if B then C1A else C1B endif};P2) \\
+          & \equiv (B \land wp(C1A, P2) \lor (\neg B \land wp(C1B, P2)) \\
+\end{split}
+\end{equation}
+Donde
+\begin{itemize}
+    \item \verb|B = eventos[i]|
+    \item \verb|C1A = res := res * apuesta.c * pago.c|
+    \item \verb|C1B = res := res * apuesta.s * pago.s|
+\end{itemize}
+
+Empecemos viendo que pasa cuando sale cara.
+\begin{equation} \label{eq2.a}
+\begin{split}
+wp(C1A;P2) & \equiv def(eventos[i]==True) \land_{L} wp(res := res * apuesta.c * pago.c; P2) \\
+           & \equiv 0\leq i<|eventos| \land_{L} P2^{res}_{res * apuesta.c * pago.c} \\
+\end{split}
+\end{equation}
+Diremos que $P1A = wp(C1A;P2) = P2^{res}_{res * apuesta.c * pago.c}$
+
+\begin{equation} \label{eq2.a}
+\begin{split}
+% P1A & \equiv 0\leq i+1 \leq |eventos| \land_L \\& res = recursos \cdot (apuestas.c\cdot pagos.c)^{\#T(i+1)}(apuestas.s\cdot pagos.c)^{\#F(i+1)}\\
+P1A & \equiv 0\leq i+1 \leq |eventos| \land_L \\& res * apuesta.c * pago.c = recursos \cdot (apuestas.c\cdot pagos.c)^{\#T(i+1)}(apuestas.s\cdot pagos.c)^{\#F(i+1)}\\
+P1A & \equiv 0\leq i+1 \leq |eventos| \land_L \\& res = recursos \cdot (apuestas.c\cdot pagos.c)^{\#T(i+1)-1}(apuestas.s\cdot pagos.c)^{\#F(i+1)}\\
+\end{split}
+\end{equation}
+Lo anterior es muy útil por dos cosas.
+La primera: cómo en este caso estamos contando cuando sale cara, sabemos que $eventos[i+1] = True$ Por lo tanto $\#T(i+1)-1=\#T(i)$, no contar el elemento $i+1$ (que es True) es lo mismo que restarle uno contandolo. Lo segundo: cómo en $i+1$ tenemos true, cuando contamos la cantidad de False nos va a dar lo mismo que llegando hasta $i$. Por lo tanto $\#F(i+1)=\#F(i)$ \textbf{en este caso}.
+
+Luego, nos queda que
+\begin{equation} 
+    \begin{split}
+    P1A & \equiv 0\leq i+1 \leq |eventos| \land_L \\& res = recursos \cdot (apuestas.c\cdot pagos.c)^{\#T(i)}(apuestas.s\cdot pagos.c)^{\#F(i)}
+    \end{split}
+\end{equation}
+
+Además, $0\leq i+1 \leq |eventos| \Longrightarrow -1\leq i \leq |eventos|-1$. Sabemos que el ciclo empieza con $i=0$, entonces $0\leq i \leq |eventos|-1 \equiv 0\leq i < |e|$.
+
+Veamos ahora que pasa cuando sale seca.
+\begin{equation} \label{eq2.a}
+\begin{split}
+wp(C1B;P2) & \equiv wp(res := res * apuesta.s * pago.s; P2) \\
+           & \equiv P2^{res}_{res * apuesta.s * pago.s} \\
+\end{split}
+\end{equation}
+
+Diremos que $P1B = wp(C1B;P2) = P2^{res}_{res * apuesta.s * pago.s}$
+
+\begin{equation} \label{eq2.b}
+\begin{split}
+% P1B & \equiv 0\leq i+1 \leq |eventos| \land_L \\& res = recursos \cdot (apuestas.c\cdot pagos.c)^{\#T(i+1)}(apuestas.s\cdot pagos.c)^{\#F(i+1)}\\
+P1B & \equiv 0\leq i+1 \leq |eventos| \land_L \\& res * apuesta.s * pago.s = recursos \cdot (apuestas.c\cdot pagos.c)^{\#T(i+1)}(apuestas.s\cdot pagos.c)^{\#F(i+1)}\\
+P1B & \equiv 0\leq i+1 \leq |eventos| \land_L \\& res = recursos \cdot (apuestas.c\cdot pagos.c)^{\#T(i+1)}(apuestas.s\cdot pagos.c)^{\#F(i+1)-1}\\
+\end{split}
+\end{equation}
+
+Ocurre lo mismo que con la rama anterior, pero para seca.
+Estamos contando cuando sale seca, $eventos[i+1] = False$. Por lo tanto $\#F(i+1)-1=\#F(i)$. Lo segundo: cómo en $i+1$ tenemos False, cuando contamos la cantidad de True nos va a dar lo mismo que llegando hasta $i$. Por lo tanto $\#T(i+1)=\#T(i)$.
+
+Luego, nos queda que
+\begin{equation}
+    \begin{split}
+    P1B & \equiv 0\leq i+1 \leq |eventos| \land_L \\& res = recursos \cdot (apuestas.c\cdot pagos.c)^{\#T(i)}(apuestas.s\cdot pagos.c)^{\#F(i)}\\
+    \end{split}
+\end{equation}
+
+Observemos que con $\#F(i+1)-1$ ocurre lo mismo que en \ref{eq2.a}
+
+\begin{equation} \label{P1A}
+    P1B \equiv 0\leq i \leq |eventos|-1 \land_L \\ res = recursos \cdot (apuestas.c\cdot pagos.c)^{\#T(i)}(apuestas.s\cdot pagos.c)^{\#F(i)}\\
+\end{equation}
+
+Finalmente, podemos sitetizar todo lo anterior en
+
+\begin{equation} \label{final}
+\begin{split}
+    wp(C1;P2) &\equiv (B \land wp(C1A, P2) \lor (\neg B \land wp(C1B, P2))\\
+    wp(C1;P2) &\equiv ((B \land P1A) \lor (\neg B \land P1B))\\
+\end{split}
+\end{equation}
+
+Bien, con esto en mente, podemos ver un elemento que se repite \\$0\leq i \leq |eventos|-1$. Observemos que podemos acotarlo, de la siguiente manera $0\leq i \leq |eventos|$. 
+
+Además, tenemos $P1A \lor P1B$, que son dos elementos iguales. Cuando sale seca, y cuando sale cara, ocurre lo mismo. 
+
+\begin{equation}
+    P1A \lor P1B \equiv
+    (0\leq i \leq |eventos|)\land_{L}
+    res = recursos \cdot (apuestas.c\cdot pagos.c)^{\#T(i)}(apuestas.s\cdot pagos.c)^{\#F(i)}
+\end{equation}
+
+Luego, esto es el valor de $\verb+wp(C1,P2)+$, que es igual a $\verb+wp(C,I)+$
+
+Vimos que $\verb+wp(C;I)+ \to \{I \land B\}$, que es lo que queríamos probar.
+
+
+
+\end{document}
