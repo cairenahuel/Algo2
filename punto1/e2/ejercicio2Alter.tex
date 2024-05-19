@@ -3,27 +3,23 @@
 \begin{proc}{trayectoriaDeLosFrutosIndividualesALargoPlazo}{\Inout trayectorias : \TLista{\TLista{\float}},\\ \In cooperan : \TLista{\bool}, \In apuestas : \TLista{\TLista{\float}}, \In pagos : \TLista{\TLista{\float}}, \In eventos : \TLista{\TLista{\nat}}}{}
     \requiere{|trayectorias|=|cooperan|=|eventos|=|pagos|=|apuestas|}
     \requiere{trayectorias=TRAYECTORIAS_0}
-    \requiere{\paraTodo[unalinea]{i}{\ent}{enRango(i,trayectorias)\yLuego |trayectorias[i]|=1\land trayectorias[i]>0}}
-    \requiere{\paraTodo[unalinea]{i}{\ent}{(enRango(i, eventos) \yLuego |eventos[i]|>0}}
+    \requiere{\paraTodo[unalinea]{i}{\ent}{enRango(i,|trayectorias|)\yLuego |trayectorias[i]|=1\land trayectorias[i]>0}}
+    \requiere{\paraTodo[unalinea]{i}{\ent}{(enRango(i, |eventos|) \yLuego |eventos[i]|>0}}
     \requiere{\paraTodo[unalinea]{i}{\ent}{(enRango(i, |cooperan|) \yLuego (|pagos[i]|=|apuestas[i]| )}}
-    \requiere{\paraTodo[unalinea]{i}{\ent}{enRango(i, cooperan)\yLuego \sum_{k=0}^{|apuestas|-1}apuestas[i][k] = 1}}
-    
-    \salto{\baselineskip}
+    \requiere{\paraTodo[unalinea]{i}{\ent}{enRango(i, |cooperan|)\yLuego \sum_{k=0}^{|apuestas|-1}apuestas[i][k] = 1}}
     \requiere{esRectangular(eventos)\yLuego esRectangular(pagos)\yLuego esRectangular(apuestas)}
-    \salto{\baselineskip}
-    
+    \requiere{todosLosEventosSonValidos(eventos, apuestas)}
+    \requiere{todosPositivosMatriz(pagos)}
     \asegura{|TRAYECTORIAS_0|=|trayectorias|}
     \asegura{\paraTodo[unalinea]{i}{\ent}{enRango(i,TRAYECTORIAS_0)\yLuego trayectorias[i][0]=TRAYECTORIAS_0[i][0]}}
     \asegura{\paraTodo[unalinea]{i}{\ent}{enRango(i,TRAYECTORIAS_0)\yLuego |trayectorias[i]|=|eventos[i]|+1}}
     \salto{\baselineskip}
-    \asegura{\paraTodo[unalinea]{i}{\ent}{enRango(i,trayectorias)\yLuego \paraTodo[unalinea]{t}{\ent}{0\leq t < |eventos[0]|\yLuego\\
-    trayectorias[i][t+1]=ufcPaso(t,trayectorias,cooperan,apuestas,pagos,eventos)+\IfThenElse{cooperan[i]}
+    \asegura{\paraTodo[unalinea]{individuo}{\ent}{enRango(individuo,|trayectorias|)\yLuego \paraTodo[unalinea]{tiempo}{\ent}{enRango(tiempo, |eventos[0]|)\yLuego\\
+    trayectorias[individuo][tiempo+1]=ufcPaso(tiempo,trayectorias,cooperan,apuestas,pagos,eventos)+
+    \\\IfThenElse{cooperan[i]}
     {0}
-    {\\trayectorias[i][t]*apuestas[i][eventos[i][t]]*pagos[i][eventos[i][t]]
+    {\\trayectorias[individuo][tiempo]*apuestas[individuo][eventos[individuo][tiempo]]
+    \\ *pagos[individuo][eventos[individuo][tiempo]]
     }}}}
     \end{proc}
-    \salto{\baselineskip}
-    \aux{ufcPaso}{t: \ent, tr: \TLista{\TLista{\float}}, co: \TLista{\bool}, ap : \TLista{\TLista{\float}}, pa : \TLista{\TLista{\float}}, ev : \TLista{\TLista{\nat}}}{\float}{
-        \\\frac{\sum_{i=0}^{|co|-1}(\IfThenElse{co[i]}{tr[i][t]*ap[i][ev[i][t]]*pa[i][ev[i][t]]}{0})}{|co|}
-    }
 \end{document}
