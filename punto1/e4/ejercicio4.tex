@@ -9,6 +9,8 @@
     \requiere{\paraTodo[unalinea]{i}{\ent}{enRango(i, cooperan) \yLuego (|pagos[i]|=|apuestas[i]|)}}
     \requiere{enRango(individuo, cooperan)}
     \requiere{\paraTodo[unalinea]{i}{\ent}{enRango(i, cooperan)\yLuego esApuestaValida(apuestas[i])}}
+    \requiere{todosLosEventosSonValidos(eventos, apuestas)}
+    \requiere{todosPositivosMatriz(pagos)}
 
     \asegura{|cooperan|=|COOPERAN_0|}
     \asegura{\paraTodo[unalinea]{i}{\ent}{i\not=individuo\yLuego cooperan[i]=COOPERAN_0[i]}}
