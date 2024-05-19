@@ -11,31 +11,22 @@
 		
 		\requiere{esRectangular(eventos)\yLuego esRectangular(pagos)\yLuego esRectangular(apuestas)}
 		\requiere{\paraTodo[unalinea]{i}{\ent}{enRango(i, |cooperan|)\yLuego esApuestaValida(apuestas[i])}}
-		{\color{olive}\salto{\baselineskip}
-
 		\requiere{todosLosEventosSonValidos(eventos, apuestas)}
-		\pred{todosLosEventosSonValidos}{apuestas : \TLista{\TLista{\float}}, eventos : \TLista{\TLista{\nat}}}{\paraTodo[unalinea]{\ individuo}{\ent}{enRango(individuo, |cooperan|)\yLuego
-		\\\paraTodo[unalinea]{\ tiempo}{\ent}{enRango(tiempo, |eventos[0]|)\yLuego
-		\\\existe[unalinea]{\ eventoPosible}{\nat}{enRango(eventoPosible, |pagos[0]|) \yLuego
-		\\eventos[individuo][tiempo]=eventoPosible}}}}
+		\requiere{todosPositivosMatriz(pagos)}
+
 		\salto{\baselineskip}
-		\requiere{\text{SE ME HABIA OCURRIDO UN REQUIERE MAS PERO SE ME OLVIDO AAAAAAAAAAA}}
-
-		}\salto{\baselineskip}
-
+		\asegura{|apuestas|=|APUESTAS_0|}
+		\asegura{\paraTodo[unalinea]{ind}{\ent}{enRango(ind, |APUESTAS_0|)\yLuego |apuestas[ind]|=|APUESTAS_0[ind]|}}
+		\asegura{\paraTodo[unalinea]{ind}{\ent}{enRango(ind, |APUESTAS_0|)\land ind\not=individuo\yLuego 
+		\\\paraTodo[unalinea]{evento}{\ent}{enRango(evento, |APUESTAS_0[0]|\yLuego apuestas[ind][evento]=APUESTAS_0[ind][evento])}}}
 		\asegura{\existe[unalinea]{\ mejorApuesta}{\TLista{\float}}{esApuestaValida(mejorApuesta)
 		\yLuego apuestas[individuo]=mejorApuesta \sii\\
 		\existe[unalinea]{\ mejorTrayectoria}{\TLista{\TLista{\float}}}{
-			\\esTrayectoriaValida(mejorTrayectoria, cooperan, setAt(apuestas, individuo, mejorApuesta), pagos, eventos)\yLuego
-			\\\paraTodo[unalinea]{\ otraApuesta}{\TLista{\float}}{esApuestaValida(otraApuesta)\yLuego \existe[unalinea]{\ otraTrayectoria}{\TLista{\TLista{\float}}}{
-				\\esTrayectoriaValida(otraTrayectoria, cooperan, setAt(apuestas,individuo,otraApuesta),pagos,eventos)\yLuego
+			\\esTrayectoriaValida(mejorTrayectoria, cooperan, setAt(APUESTAS_0, individuo, mejorApuesta), pagos, eventos)\yLuego
+			\paraTodo[unalinea]{\ otraApuesta}{\TLista{\float}}{esApuestaValida(otraApuesta)\yLuego \existe[unalinea]{\ otraTrayectoria}{\TLista{\TLista{\float}}}{
+				\\esTrayectoriaValida(otraTrayectoria, cooperan, setAt(APUESTAS_0,individuo,otraApuesta),pagos,eventos)\yLuego
 				\\mejorTrayectoria[individuo][|eventos[individuo]|]\geq otraTrayectoria[|eventos[individuo]|]
 			}}
 		}}}
-		
-		\begin{adjustwidth}{1em}{}
-			\donde{tfc=trayectoriaFinalCooperando}
-			\donde{tfnc=trayectoriaFinalNoCooperando}
-		\end{adjustwidth}
 	\end{proc}	
 \end{document}
