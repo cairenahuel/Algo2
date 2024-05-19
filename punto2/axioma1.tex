@@ -1,21 +1,29 @@
 \documentclass[../document.tex]{subfiles}
 \begin{document}
 %\begin{center}
-\subsection*{Axioma 1}
-Queremos ver que $pc\implies I$ vale. Por hipotesis sabemos que $i=0$ y $res=recursos$ son verdaderos\\
+\subsection*{Predicado 1}
+Queremos ver que $Pc\implies I$ vale. Por hipótesis sabemos que $i=0$ y $res=recursos$ son verdaderos
 
-Si $i=0 \implies 0\leq i < |eventos|$. Además $S_e(i)=subset(eventos,0,0)=\emptyset$, por lo tanto $\#(S_e(i),T)=0$ y $\#(S_e(i),F)=0$
+Si $i=0 \implies 0\leq i < |eventos|$. 
 
-A partir de esto podemos ver que el valor de res, coincide con la hipótesis, aprovechando que todos los factores son mayores a 0 (por el requiere de la especificaicón);
+Además $subset(eventos,0,0)=\emptyset$, por lo tanto $\#T(0)=0$ y $\#F(0)=0$
+
+También sabemos (por hipótesis) que todas las variables son mayores a cero, por lo tanto lo siguiente vale.
 
 \begin{equation}
-res=r\cdot(a_c\cdot p_c)^0\cdot (a_s\cdot p_s)^0=recursos
+res=recursos\cdot(apuesta_c\cdot pago_c)^0\cdot (apuesta_s\cdot pago_s)^0=recursos
 \end{equation}
 
-Por lo tanto, vale la siguiente implicación
+Demostramos que
 
 \begin{equation}
-(i=0 \yLuego res=r)\implies (0\leq i < |eventos| \yLuego res=r\cdot(a_c\cdot p_c)^{\#(S_c(i),T)}\cdot(a_s\cdot p_s)^{\#(S_s(i),F)})
+Pc\implies (0\leq i < |eventos| \yLuego res=r\cdot(a_c\cdot p_c)^{\#(S_c(i),T)}\cdot(a_s\cdot p_s)^{\#(S_s(i),F)})
+\end{equation}
+
+Esto es
+
+\begin{equation}
+Pc\implies I
 \end{equation}
 
 Que es lo que queríamos probar.

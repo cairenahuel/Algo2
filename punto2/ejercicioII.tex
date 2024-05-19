@@ -15,16 +15,17 @@ Tenemos el siguiente código, el cual llamaremos $C$
     endwhile
 \end{verbatim}
 
-Para demostrar que este código cumple con el requerimiento pedido, se deben comprobar dos cosas:
+Sea la tripla de Hoare $\{P\}C\{Q\}$, para demostrar que este código cumple con el requerimiento pedido, usaremos lo siguiente.
 
 \begin{enumerate}
-    \item la poscondición $Q$, de la tripla de Hoare $\{P\}C\{Q\}$, debe implicar el predicado que asegura la especificación.
-    \item el predicado que requiere la especificación debe implicar a la precondición {P}.
+    \item La precondición $P$ es equivalente al requiere de la especificación.
+    \item La poscondición $Q$ es equivalente al asegura de la especificación.
 \end{enumerate}
 
 Para verificar esto, en primer lugar, debemos estudiar el ciclo que se encuentra dentro del código.
 
 $\{P_c: i = 0 \land_{L} res = recursos \land_{L} apuesta_{c}+apuesta_{c}=1 \land_{L} pago_{c},pago_{s},apuesta_{c},apuestsa{s},recurso>0\}$
+
 \begin{verbatim}
     while (i < |eventos|) do
         if (eventos[i]) then
@@ -35,9 +36,12 @@ $\{P_c: i = 0 \land_{L} res = recursos \land_{L} apuesta_{c}+apuesta_{c}=1 \land
         i := i+1
     endwhile
 \end{verbatim}
+
 $\{Q_c: i = |eventos| \land_{L} res = recursos \cdot (apuestas.c\cdot pagos.c)^{\#T}(apuestas.s\cdot pagos.c)^{\#F}\}$
 
-donde $\#T = \#(eventos, True)$ y $\#F = \#(eventos, F)$. Proponemos, a partir de esto, el siguiente invariante
+Donde $\#T = \#(eventos, True)$ y $\#F = \#(eventos, F)$. Notemos que este $Qc$ implica $Q$, nuestro asegura. Por lo tanto, si esta es una tripla de Hoare válida, hemos demostrado que la implementación es correcta!
+
+Proponemos el siguiente invariante
 
 $$I \equiv 0\leq i \leq |eventos| \land_L res = recursos \cdot (apuestas.c\cdot pagos.c)^{\#T(i)}(apuestas.s\cdot pagos.c)^{\#F(i)}$$
 
@@ -46,9 +50,7 @@ donde $\#T(i) = \#(eventos[0..i], True)$ y $\#F(i) = \#(eventos[0..i], F)$
 Además, nos quedan la siguiente guarda y función variante
 
 $$B \equiv i < |eventos|$$
-$$f_v = |eventos|-1$$
-
-La poscondición del ciclo, $Q_c$ es el $Q$ que estamos buscando. Por lo tanto, $Q_c$ debe implicar el predicado del asegura. La precondición del ciclo nos permitirá, luego, encontrar la precondición más débil del código, y así ver si la precondición implica ésta última.
+$$f_v = |eventos|-i$$
 
 Demostremos que $\{P_c\}S\{Q_c\}$ es una tripla de Hoare válida.
 
@@ -66,7 +68,7 @@ y \verb+C2+ es
     i := i+1
 \end{verbatim}
 
-En principio, \textbf{sí el ciclo finaliza}, para ser válida deben ser ciertos los siguientes predicados
+Para ser válida deben ser ciertos los siguientes predicados
 \begin{enumerate}
     \item $P_c \to I$
     \item $\{I \land B\}C\{I\}$
